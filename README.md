@@ -1,2 +1,2 @@
 # parsnip
-A UI interface for the Natural Language Toolkit
+A user interface for the Natural Language Toolkit
