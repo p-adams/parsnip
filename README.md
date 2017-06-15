@@ -1,2 +1,2 @@
 # parsnip
-A user interface for the Natural Language Toolkit
+An interactive educational app for learning English 
