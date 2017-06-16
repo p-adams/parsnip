@@ -1,2 +1,2 @@
-# parsnip
-An interactive educational app for learning English 
+# parsnips
+An interactive NLP visualization application 
