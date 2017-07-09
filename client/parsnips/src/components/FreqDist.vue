@@ -1,10 +1,24 @@
 <template>
   <div class="freq-dist">
+
     <ul>
       <li v-for="(data, key) in dataFromServer" :key="key">
         {{data}}
       </li>
     </ul>
+    {{text}}
+    <form>
+      <textarea
+          v-model="text"
+          rows="10"
+          cols="50"
+          autofocus
+          spellcheck="true"
+      >
+      </textarea>
+      <br>
+      <button @click="sendText">send text</button>
+    </form>
     <router-link to="/">return home</router-link>
   </div>
 </template>
@@ -21,7 +35,7 @@ export default {
   },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App',
+      text: '',
       dataFromServer: []
     }
   },
@@ -32,4 +46,10 @@ export default {
   }
 }
 </script>
+<style>
+  textarea {
+    resize: none;
+  }
+</style>
+
 
