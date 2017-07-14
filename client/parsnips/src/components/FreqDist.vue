@@ -1,80 +1,39 @@
 <template>
-  <div class="freq-dist">
-
-    <ul>
-      <li v-for="(data, key) in dataFromServer" :key="key">
-        {{data}}
-      </li>
-    </ul>
-      <form v-if="!textSubmitted">
-        <textarea
-            v-model="text"
-            rows="10"
-            cols="50"
-            autofocus
-            spellcheck="true"
-        >
-        </textarea>
-        <br>
-        <button @click="sendText">send text</button>
-      </form>
-      <freq-dist-chart v-else="textSubmitted"
+    <div>
+        Frequency Dist chart
+        <freq-dist-chart
           :data="chartData"
           :options="chartOptions"
           :width="400"
           :height="200"
-      ></freq-dist-chart>
-    <router-link to="/">return home</router-link>
-  </div>
+        ></freq-dist-chart>
+
+    </div>
 </template>
 <script>
 import FreqDistChart from './chartcomponents/FreqDistChart'
 export default {
-  name: 'freq-dist',
-  created () {
-    fetch('/api')
-      .then(response => response.json())
-      .then(data => { this.loadData(data)})
-      .catch(err => {console.log(err)})
-  },
-  data () {
-    return {
-      text: '',
-      textSubmitted: false,
-      dataFromServer: [],
-      chartData: {
-        labels: ['January', 'February'],
-        datasets: [
-          {
-            label: 'Github Commits',
-            backgroundColor: '#f87979',
-            data: [40, 20]
-          }
-        ]
-      },
-      chartOptions: {
-          responsive: false, 
-          maintainAspectRation: false
-      },
-    }
-  },
-  methods: {
-    loadData (data) {
-      this.dataFromServer.push(...data.greetings)
+    name: 'freq-dist',
+    data () {
+        return {
+            chartData: {
+                labels: ['January', 'February'],
+                datasets: [
+                    {
+                        label: 'Github Commits',
+                        backgroundColor: '#f87979',
+                        data: [40, 20]
+                    }
+                ]
+            },
+            chartOptions: {
+                responsive: false, 
+                maintainAspectRation: false
+            },
+        }
     },
-    sendText () {
-      this.textSubmitted = true
+    components: {
+        FreqDistChart
     }
-  },
-  components: {
-    FreqDistChart
-  }
 }
 </script>
-<style>
-  textarea {
-    resize: none;
-  }
-</style>
-
-

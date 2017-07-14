@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import MainPage from '@/components/MainPage'
-import FreqDist from '@/components/FreqDist'
+import FreqDist from '@/components/FreqDistMain'
 
 Vue.use(Router)
 
