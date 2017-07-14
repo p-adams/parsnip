@@ -3,7 +3,6 @@
 
     <ul>
       <li v-for="(data, key) in dataFromServer" :key="key">
-        {{data}}
       </li>
     </ul>
     {{text}}
@@ -22,7 +21,12 @@
       </form>
     </div>
     <div>
-      <FreqDistChart></FreqDistChart>
+      <FreqDistChart
+          :data="chartData"
+          :options="chartOptions"
+          :width="400"
+          :height="200"
+          ></FreqDistChart>
     </div>
     <router-link to="/">return home</router-link>
   </div>
@@ -33,19 +37,28 @@ export default {
   name: 'freq-dist',
   created () {
     console.log(this.$refs.chart)
-    fetch('/api').then(response => {
-      return response.json()
-    })
-    .then(data => {
-      this.loadData(data)
-    })
-    .catch(err => {
-      console.log(err)
-    })
+    fetch('/api')
+      .then(response => return response.json())
+      .then(data => { this.loadData(data)})
+      .catch(err => {console.log(err)})
   },
   data () {
     return {
       text: '',
+      chartData: {
+        labels: ['January', 'February'],
+        datasets: [
+          {
+            label: 'Github Commits',
+            backgroundColor: '#f87979',
+            data: [40, 20]
+          }
+        ]
+      },
+      chartOptions: {
+          responsive: false, 
+          maintainAspectRation: false
+      }
       dataFromServer: []
     }
   },

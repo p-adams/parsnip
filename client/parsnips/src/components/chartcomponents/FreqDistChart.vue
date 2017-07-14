@@ -1,9 +1,12 @@
 <template>
 </template>
 <script>
-export default {
+import {Bar} from 'vue-chartjs'
+export default Bar.extend({
     name: 'freq-dist-chart',
-    created () {
+    props: ['data', 'options']
+    mounted () {
+        this.renderChart(this.data, this.options)
     }
-}
+})
 </script>
