@@ -3,11 +3,10 @@
 
     <ul>
       <li v-for="(data, key) in dataFromServer" :key="key">
+        {{data}}
       </li>
     </ul>
-    {{text}}
-    <div>
-      <form>
+      <form v-if="!textSubmitted">
         <textarea
             v-model="text"
             rows="10"
@@ -19,32 +18,30 @@
         <br>
         <button @click="sendText">send text</button>
       </form>
-    </div>
-    <div>
-      <FreqDistChart
+      <freq-dist-chart v-else="textSubmitted"
           :data="chartData"
           :options="chartOptions"
           :width="400"
           :height="200"
-          ></FreqDistChart>
-    </div>
+      ></freq-dist-chart>
     <router-link to="/">return home</router-link>
   </div>
 </template>
 <script>
-import FreqDistChart from './chartcomponents/FreqDistChart.vue'
+import FreqDistChart from './chartcomponents/FreqDistChart'
 export default {
   name: 'freq-dist',
   created () {
-    console.log(this.$refs.chart)
     fetch('/api')
-      .then(response => return response.json())
+      .then(response => response.json())
       .then(data => { this.loadData(data)})
       .catch(err => {console.log(err)})
   },
   data () {
     return {
       text: '',
+      textSubmitted: false,
+      dataFromServer: [],
       chartData: {
         labels: ['January', 'February'],
         datasets: [
@@ -58,16 +55,15 @@ export default {
       chartOptions: {
           responsive: false, 
           maintainAspectRation: false
-      }
-      dataFromServer: []
+      },
     }
   },
   methods: {
     loadData (data) {
-      this.dataFromServer = data
+      this.dataFromServer.push(...data.greetings)
     },
     sendText () {
-      console.log('send text to server')
+      this.textSubmitted = true
     }
   },
   components: {
