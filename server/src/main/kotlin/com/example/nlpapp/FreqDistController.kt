@@ -2,15 +2,15 @@ package com.example.nlpapp
 
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
 import edu.stanford.nlp.simple.*
+import org.springframework.web.bind.annotation.*
 import java.util.HashMap
 
 
 
-data class FreqDist(var data: String)
+class FreqDist() {
+    var data: String = ""
+}
 
 @RestController
 class FreqDistController {
@@ -29,9 +29,9 @@ class FreqDistController {
         return freqs
     }
 
-    @GetMapping("/api/freq-dist")
-    fun getFreqDist(): ResponseEntity <Map<String, Long?>> {
-        val f = FreqDist("Colorless green green ideas sleep furiously")
+    @RequestMapping(value = "/api/freq-dist", method = arrayOf(RequestMethod.POST))
+    fun getFreqDist(@RequestBody f: FreqDist): ResponseEntity <Map<String, Long?>> {
+        //val f = FreqDist("Colorless green green ideas sleep furiously")
         val tokens: Map<String, Long?> = getTokens(f)
         return ResponseEntity <Map<String, Long?>>(tokens, HttpStatus.OK)
     }
