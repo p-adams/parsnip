@@ -31,7 +31,6 @@ class FreqDistController {
 
     @RequestMapping(value = "/api/freq-dist", method = arrayOf(RequestMethod.POST))
     fun getFreqDist(@RequestBody f: FreqDist): ResponseEntity <Map<String, Long?>> {
-        //val f = FreqDist("Colorless green green ideas sleep furiously")
         val tokens: Map<String, Long?> = getTokens(f)
         return ResponseEntity <Map<String, Long?>>(tokens, HttpStatus.OK)
     }
