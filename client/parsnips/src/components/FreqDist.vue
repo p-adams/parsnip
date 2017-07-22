@@ -25,7 +25,7 @@ export default {
                 labels: ['January', 'February'],
                 datasets: [
                     {
-                        label: 'Github Commits',
+                        label: 'Frequency Distribution',
                         backgroundColor: '#f87979',
                         data: [40, 20]
                     }
@@ -38,15 +38,16 @@ export default {
         }
     },
     methods: {
-        /*loadWordFreq () {
-            axios.get('/api/freq-dist')
-                .then(res => {
-                    console.log(`meow: ${res.data}`)
-                })
-                .catch(err => {
-                    console.log(err)
-                })
-        }*/
+        populateChart (freq) {
+            this.populateLabels(freq)
+            this.populateDatasets
+        },
+        populateLabels (freq) {
+            
+        },
+        populateDatasets (freq) {
+
+        }
     },
     components: {
         FreqDistChart
