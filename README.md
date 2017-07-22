@@ -1,2 +1,2 @@
 # parsnips
-An interactive NLP visualization application 
+An interactive NLP sandbox.
