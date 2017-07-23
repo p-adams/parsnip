@@ -1,6 +1,6 @@
 <template>
-    <div>
-        Frequency Dist chart
+    <div class="chart">
+        <p>Frequency Dist chart</p>
         <freq-dist-chart
           :data="chartData"
           :options="chartOptions"
@@ -54,3 +54,10 @@ export default {
     }
 }
 </script>
+<style scoped>
+    .chart {
+        top: 45%;
+        left: 35%;
+        position: absolute;
+    }
+</style>
