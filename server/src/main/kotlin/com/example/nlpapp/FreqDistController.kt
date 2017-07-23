@@ -18,7 +18,8 @@ class FreqDistController {
     fun getTokens(f: FreqDist): MutableMap<String, Long?> {
         var  freqs = mutableMapOf<String, Long?>()
         val sent: Sentence = Sentence(f.data)
-        val tokens:List<String> = sent.words()
+        val tokens:List<String> = sent.words().filterNot{x -> ";:.,?!-'\"(){}".contains(x)}
+        println(tokens)
         for (t in tokens) {
             if (freqs.containsKey(t)) {
                 freqs.put(t, freqs.get(t)?.plus(1))
@@ -35,3 +36,4 @@ class FreqDistController {
         return ResponseEntity <MutableMap<String, Long?>>(tokens, HttpStatus.OK)
     }
 }
+

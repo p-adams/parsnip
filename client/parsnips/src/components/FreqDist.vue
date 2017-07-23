@@ -27,7 +27,7 @@ export default {
         let labels = []
         let data = []
         this.dist.forEach((freq, word) => {
-            //console.log(`freq=${freq} |-| word=${word}`)
+            console.log(`freq=${freq} |-| word=${word}`)
             labels.push(word)
             data.push(freq)
         })
@@ -49,7 +49,29 @@ export default {
             },
             chartOptions: {
                 responsive: false, 
-                maintainAspectRation: false
+                maintainAspectRation: false,
+                scales: {
+                    xAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'words'
+                            }
+                        }],
+                    yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'frequency'
+                            },
+                            ticks: {
+                                beginAtZero: true,
+                                steps: 1,
+                                stepValue: 1,
+                                max: 100
+                            }
+                        }]
+                }
             },
         }
     },
