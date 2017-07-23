@@ -18,7 +18,7 @@
         >
         </textarea>
         <br>
-        <button @click="sendText">send text</button>
+        
       </div>
       <freq-dist
           :dist="res"
