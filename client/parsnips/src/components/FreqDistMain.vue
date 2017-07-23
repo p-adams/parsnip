@@ -1,13 +1,7 @@
 <template>
   <div class="freq-dist">
-
-    <ul>
-      <li v-for="(data, key) in dataFromServer" :key="key">
-        {{data}}
-      </li>
-    </ul>
+    <div :style="{border: '1px solid red'}">
       <div
-          :style="{border: '1px solid red'}"
           v-if="!textSubmitted">
         <textarea
             v-model="text"
@@ -27,6 +21,7 @@
           :dist="res"
           v-else-if="textSubmitted && !isLoading"
         ></freq-dist>
+    </div>
     <router-link to="/">return home</router-link>
   </div>
 </template>
@@ -51,7 +46,7 @@ export default {
         .then(response => {
           console.log(response)
           Object.keys(response.data).forEach(key => {
-              console.log(key, response.data[key])
+              //console.log(key, response.data[key])
               this.res.set(key, response.data[key])
           })
           this.isLoading = false

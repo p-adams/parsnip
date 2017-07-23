@@ -1,10 +1,11 @@
 
-import {Bar} from 'vue-chartjs'
+import {Bar, mixins} from 'vue-chartjs'
+const {reactiveProp} = mixins
 export default Bar.extend({
     name: 'freq-dist-chart',
-    props: ['data', 'options'],
+    mixins: [reactiveProp],
+    props: ['options'],
     mounted () {
-        this.renderChart(this.data, this.options)
-    },
-    template: `<div>Can I have template?</div>`
+        this.renderChart(this.chartData, this.options)
+    }
 })

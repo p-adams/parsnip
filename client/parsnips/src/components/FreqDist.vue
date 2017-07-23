@@ -1,13 +1,19 @@
 <template>
-    <div class="chart">
-        <p>Frequency Dist chart</p>
-            <freq-dist-chart
-            :data="chartData"
-            :options="chartOptions"
-            :width="400"
-            :height="200"
-            ></freq-dist-chart>
-            {{dist}}
+    <div>
+        <md-layout md-align="center" md-gutter="16">
+            <md-layout md-flex="50">
+                <div class="chart">
+                <h5>Frequency Dist chart</h5>
+                    <freq-dist-chart
+                        :chart-data="chartData"
+                        :options="chartOptions"
+                        :width="800"
+                        :height="500"
+                    ></freq-dist-chart>
+                <h4>{{dist}}</h4>
+                </div>
+            </md-layout>
+        </md-layout>
     </div>
 </template>
 <script>
@@ -16,18 +22,28 @@ import axios from 'axios'
 export default {
     name: 'freq-dist',
     props: ['dist'],
-    mounted () {
+    created () {
         console.log(this.dist)
+        let labels = []
+        let data = []
+        this.dist.forEach((freq, word) => {
+            //console.log(`freq=${freq} |-| word=${word}`)
+            labels.push(word)
+            data.push(freq)
+        })
+        this.chartData.labels = labels
+        this.chartData.datasets[0].data = data
     },
     data () {
         return {
             chartData: {
-                labels: ['January', 'February'],
+                labels: [],
                 datasets: [
                     {
                         label: 'Frequency Distribution',
                         backgroundColor: '#f87979',
-                        data: [40, 20]
+                        fontSize: '20px',
+                        data: []
                     }
                 ]
             },
@@ -55,9 +71,10 @@ export default {
 }
 </script>
 <style scoped>
-   /*.chart {
-        top: 45%;
-        left: 35%;
-        position: absolute;
-    }*/
+    h3 {
+        text-align: center;
+    }
+    .chart {
+        border: 1px solid white;
+    }
 </style>
