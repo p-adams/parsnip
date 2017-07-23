@@ -18,7 +18,10 @@
         >
         </textarea>
         <br>
-        
+        <md-button
+          class="md-raised md-primary"
+          @click="sendText"
+        >send text</md-button>
       </div>
       <freq-dist
           :dist="res"
@@ -44,7 +47,7 @@ export default {
   methods: {
     sendText (e) {
       e.preventDefault()
-      /*axios.post('/api/freq-dist', {data: this.text})
+      axios.post('/api/freq-dist', {data: this.text})
         .then(response => {
           console.log(response)
           Object.keys(response.data).forEach(key => {
@@ -55,9 +58,6 @@ export default {
           this.textSubmitted = true
           })
         .catch(err => console.log(err))
-    }*/
-    this.isLoading = false
-    this.textSubmitted = true
     }
   },
   components: {

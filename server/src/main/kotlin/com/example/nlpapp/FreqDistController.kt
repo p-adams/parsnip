@@ -15,8 +15,8 @@ class FreqDist() {
 @RestController
 class FreqDistController {
 
-    fun getTokens(f: FreqDist): Map<String, Long?> {
-        val freqs = HashMap<String, Long?>()
+    fun getTokens(f: FreqDist): MutableMap<String, Long?> {
+        var  freqs = mutableMapOf<String, Long?>()
         val sent: Sentence = Sentence(f.data)
         val tokens:List<String> = sent.words()
         for (t in tokens) {
@@ -30,8 +30,8 @@ class FreqDistController {
     }
 
     @RequestMapping(value = "/api/freq-dist", method = arrayOf(RequestMethod.POST))
-    fun getFreqDist(@RequestBody f: FreqDist): ResponseEntity <Map<String, Long?>> {
-        val tokens: Map<String, Long?> = getTokens(f)
-        return ResponseEntity <Map<String, Long?>>(tokens, HttpStatus.OK)
+    fun getFreqDist(@RequestBody f: FreqDist): ResponseEntity <MutableMap<String, Long?>> {
+        val tokens = getTokens(f)
+        return ResponseEntity <MutableMap<String, Long?>>(tokens, HttpStatus.OK)
     }
 }

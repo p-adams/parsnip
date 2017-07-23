@@ -1,14 +1,13 @@
 <template>
     <div class="chart">
         <p>Frequency Dist chart</p>
-        
-                <freq-dist-chart
-                :data="chartData"
-                :options="chartOptions"
-                :width="400"
-                :height="200"
-                ></freq-dist-chart>
-                {{dist}}
+            <freq-dist-chart
+            :data="chartData"
+            :options="chartOptions"
+            :width="400"
+            :height="200"
+            ></freq-dist-chart>
+            {{dist}}
     </div>
 </template>
 <script>
