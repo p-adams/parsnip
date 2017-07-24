@@ -1,17 +1,16 @@
 <template>
     <div>
         <md-layout md-align="center" md-gutter="16">
-            <md-layout md-flex="50">
+            <md-layout md-flex="90">
                 <div class="chart">
-                <h5>Frequency Dist chart</h5>
-                    <freq-dist-chart
-                        :style="{border: '1px solid white'}"
-                        :chart-data="chartData"
-                        :options="chartOptions"
-                        :width="800"
-                        :height="500"
-                    ></freq-dist-chart>
-                <h4>{{dist}}</h4>
+                    <h5>Frequency Dist chart</h5>
+                        <freq-dist-chart
+                            :style="{backgroundColor: 'white'}"
+                            :chart-data="chartData"
+                            :options="chartOptions"
+                            :width="1000"
+                            :height="500"
+                        ></freq-dist-chart>
                 </div>
             </md-layout>
         </md-layout>
@@ -28,7 +27,7 @@ export default {
         let labels = []
         let data = []
         this.dist.forEach((freq, word) => {
-            console.log(`freq=${freq} |-| word=${word}`)
+            //console.log(`freq=${freq} |-| word=${word}`)
             labels.push(word)
             data.push(freq)
         })
@@ -58,8 +57,8 @@ export default {
                                 labelString: 'words'
                             },
                             ticks: {
-                                fontSize: 6,
-                                fontColor: 'white'
+                                fontSize: 9,
+                                fontColor: 'black',
                             }
                         }],
                     yAxes: [{
@@ -71,9 +70,11 @@ export default {
                             ticks: {
                                 drawBorder: true,
                                 beginAtZero: true,
-                                max: 100,
-                                fontSize: 20,
-                                fontColor: 'white'
+                                max: 20,
+                                stepSize: 1,
+                                fontSize: 12,
+                                fontColor: 'black',
+                                padding: 10
                             }
                         }]
                 }
@@ -102,7 +103,8 @@ export default {
         text-align: center;
     }
     .chart {
+        padding: 5px;
         border: 1px solid white;
-        width: 100%;
+       
     }
 </style>

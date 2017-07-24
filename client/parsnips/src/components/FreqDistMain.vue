@@ -1,16 +1,16 @@
 <template>
-  <div class="freq-dist">
-    <div :style="{border: '1px solid red'}">
+  <div class="freq-dist" :style="{border: '1px solid red'}">
+    <div>
       <div
           v-if="!textSubmitted">
-        <h5 class="warn" v-if="doesExceed">* Input exceeds 250 characters</h5>
+        <h5 class="warn" v-if="doesExceed">* Input exceeds 215 characters</h5>
         <h5 v-else>characters: {{text.length}}</h5>
         <textarea
             v-model="text"
             rows="10"
             cols="50"
             autofocus
-            placeholder="enter upto 250 characters"
+            placeholder="enter upto 215 characters"
         >
         </textarea>
         <br>
@@ -70,6 +70,9 @@ export default {
 }
 </script>
 <style>
+  .freq-dist {
+    height: 100vh;
+  }
   textarea {
     resize: none;
   }
