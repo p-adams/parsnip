@@ -5,6 +5,7 @@
                 <div class="chart">
                 <h5>Frequency Dist chart</h5>
                     <freq-dist-chart
+                        :style="{border: '1px solid white'}"
                         :chart-data="chartData"
                         :options="chartOptions"
                         :width="800"
@@ -42,7 +43,6 @@ export default {
                     {
                         label: 'Frequency Distribution',
                         backgroundColor: '#f87979',
-                        fontSize: '20px',
                         data: []
                     }
                 ]
@@ -56,6 +56,10 @@ export default {
                             scaleLabel: {
                                 display: true,
                                 labelString: 'words'
+                            },
+                            ticks: {
+                                fontSize: 6,
+                                fontColor: 'white'
                             }
                         }],
                     yAxes: [{
@@ -65,10 +69,11 @@ export default {
                                 labelString: 'frequency'
                             },
                             ticks: {
+                                drawBorder: true,
                                 beginAtZero: true,
-                                steps: 1,
-                                stepValue: 1,
-                                max: 100
+                                max: 100,
+                                fontSize: 20,
+                                fontColor: 'white'
                             }
                         }]
                 }
@@ -98,5 +103,6 @@ export default {
     }
     .chart {
         border: 1px solid white;
+        width: 100%;
     }
 </style>

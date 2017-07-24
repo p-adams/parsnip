@@ -3,18 +3,21 @@
     <div :style="{border: '1px solid red'}">
       <div
           v-if="!textSubmitted">
+        <h5 class="warn" v-if="doesExceed">* Input exceeds 250 characters</h5>
+        <h5 v-else>characters: {{text.length}}</h5>
         <textarea
             v-model="text"
             rows="10"
             cols="50"
             autofocus
-            spellcheck="true"
+            placeholder="enter upto 250 characters"
         >
         </textarea>
         <br>
         <md-button
           class="md-raised md-primary"
           @click="sendText"
+          :disabled="text.length === 0 || doesExceed"
         >send text</md-button>
       </div>
       <freq-dist
@@ -34,6 +37,7 @@ export default {
     return {
       text: '',
       isLoading: true,
+      inputExceeds: false,
       res: new Map(),
       textSubmitted: false,
       dataFromServer: [],
@@ -55,6 +59,11 @@ export default {
         .catch(err => console.log(err))
     }
   },
+  computed: {
+    doesExceed() {
+      return this.text.length > 250
+    }
+  },
   components: {
     'freq-dist': () => import('./FreqDist')
   }
@@ -63,6 +72,9 @@ export default {
 <style>
   textarea {
     resize: none;
+  }
+  .warn {
+    color: red;
   }
 </style>
 
