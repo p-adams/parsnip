@@ -1,24 +1,30 @@
 <template>
   <div class="freq-dist" :style="{border: '1px solid red'}">
     <div>
-      <div
-          v-if="!textSubmitted">
-        <h5 class="warn" v-if="doesExceed">* Input exceeds 215 characters</h5>
-        <h5 v-else>characters: {{text.length}}</h5>
-        <textarea
-            v-model="text"
-            rows="10"
-            cols="50"
-            autofocus
-            placeholder="enter upto 215 characters"
-        >
-        </textarea>
+      <div v-if="!textSubmitted">
+      <md-whiteframe :style="{background: 'white'}" md-elevation="24">
+        <md-layout md-align="center" md-gutter="16">
+          <md-layout md-flex="35">
+              <md-input-container class="text-area">
+                <label>Enter text</label>
+                  <md-textarea
+                      v-model="text"
+                      rows="10"
+                      cols="50"
+                      maxlength="215"
+                      autofocus
+                  >
+                </md-textarea>
+              </md-input-container>
+            </md-layout>
+          </md-layout>
         <br>
         <md-button
           class="md-raised md-primary"
           @click="sendText"
-          :disabled="text.length === 0 || doesExceed"
+          :disabled="text.length === 0 || text.length > 215"
         >send text</md-button>
+        </md-whiteframe>
       </div>
       <freq-dist
           :dist="res"
@@ -29,7 +35,7 @@
   </div>
 </template>
 <script>
-//import FreqDist from './FreqDist'
+import FreqDist from './FreqDist'
 import axios from 'axios'
 export default {
   name: 'freq-dist-main',
@@ -37,7 +43,6 @@ export default {
     return {
       text: '',
       isLoading: true,
-      inputExceeds: false,
       res: new Map(),
       textSubmitted: false,
       dataFromServer: [],
@@ -59,13 +64,8 @@ export default {
         .catch(err => console.log(err))
     }
   },
-  computed: {
-    doesExceed() {
-      return this.text.length > 250
-    }
-  },
   components: {
-    'freq-dist': () => import('./FreqDist')
+    FreqDist
   }
 }
 </script>
@@ -78,6 +78,9 @@ export default {
   }
   .warn {
     color: red;
+  }
+  .text-area {
+    border: 1px solid white;
   }
 </style>
 

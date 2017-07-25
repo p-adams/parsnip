@@ -3,7 +3,6 @@
         <md-layout md-align="center" md-gutter="16">
             <md-layout md-flex="90">
                 <div class="chart">
-                    <h5>Frequency Dist chart</h5>
                         <freq-dist-chart
                             :style="{backgroundColor: 'white'}"
                             :chart-data="chartData"
@@ -27,7 +26,6 @@ export default {
         let labels = []
         let data = []
         this.dist.forEach((freq, word) => {
-            //console.log(`freq=${freq} |-| word=${word}`)
             labels.push(word)
             data.push(freq)
         })
@@ -52,6 +50,10 @@ export default {
                 scales: {
                     xAxes: [{
                             display: true,
+                            gridLines: {
+                                display: false,
+                                color: "black"
+                            },
                             scaleLabel: {
                                 display: true,
                                 labelString: 'words'
@@ -63,8 +65,13 @@ export default {
                         }],
                     yAxes: [{
                             display: true,
+                            gridLines: {
+                                display: false,
+                                color: "black"
+                            },
                             scaleLabel: {
                                 display: true,
+                                padding: 10,
                                 labelString: 'frequency'
                             },
                             ticks: {
@@ -104,7 +111,8 @@ export default {
     }
     .chart {
         padding: 5px;
-        border: 1px solid white;
+        margin-top: 50px;
+        margin-left: 5%;
        
     }
 </style>
