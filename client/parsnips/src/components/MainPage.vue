@@ -1,6 +1,6 @@
 <template>
   <div class="main-page">
-        <h1>Main Page</h1>
+        <h3>parsnips</h3>
         <router-link to="/freqdist">View Frequency Distribution</router-link>
   </div>
 </template>

@@ -1,18 +1,14 @@
 <template>
     <div>
-        <md-layout md-align="center" md-gutter="16" :style="{marginTop: '20px', backgroundColor: '#616161'}">
-            <md-layout md-flex="90">
-                <div class="chart">
-                        <freq-dist-chart
-                            :style="{backgroundColor: 'white', padding: '10px'}"
-                            :chart-data="chartData"
-                            :options="chartOptions"
-                            :width="1000"
-                            :height="500"
-                        ></freq-dist-chart>
-                </div>
-            </md-layout>
-        </md-layout>
+        <div class="chart">
+                <freq-dist-chart
+                    :style="{backgroundColor: 'white', padding: '10px'}"
+                    :chart-data="chartData"
+                    :options="chartOptions"
+                    :width="1000"
+                    :height="500"
+                ></freq-dist-chart>
+        </div>
     </div>
 </template>
 <script>

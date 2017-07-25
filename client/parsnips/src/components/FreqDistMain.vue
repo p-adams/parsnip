@@ -2,27 +2,18 @@
   <div class="freq-dist" :style="{border: '1px solid red'}">
     <div>
       <div v-if="!textSubmitted">
-      <md-whiteframe :style="{marginTop: '20px', background: '#9575cd'}" md-elevation="24">
-        <md-layout md-align="center" md-gutter="16">
-          <md-layout md-flex="35">
-              <md-input-container class="text-area">
-                <label>Enter text</label>
-                  <md-textarea
-                      v-model="text"
-                      maxlength="215"
-                      autofocus
-                  >
-                </md-textarea>
-              </md-input-container>
-            </md-layout>
-          </md-layout>
+                <textarea
+                    v-model="text"
+                    cols="30"
+                    row="3"
+                    autofocus
+                >
+                </textarea>
         <br>
-        <md-button
-          class="md-raised md-primary"
+        <button
           @click="sendText"
           :disabled="text.length === 0 || text.length > 215"
-        >send text</md-button>
-        </md-whiteframe>
+        >send text</button>
       </div>
       <freq-dist
           :dist="res"
@@ -73,14 +64,6 @@ export default {
   }
   textarea {
     resize: none;
-  }
-  .warn {
-    color: red;
-  }
-  .text-area {
-    border: 1px solid white;
-    margin-top: 15px;
-    background: white;
   }
 </style>
 
