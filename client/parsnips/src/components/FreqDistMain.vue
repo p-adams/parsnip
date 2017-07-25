@@ -2,15 +2,13 @@
   <div class="freq-dist" :style="{border: '1px solid red'}">
     <div>
       <div v-if="!textSubmitted">
-      <md-whiteframe :style="{background: 'white'}" md-elevation="24">
+      <md-whiteframe :style="{marginTop: '20px', background: '#9575cd'}" md-elevation="24">
         <md-layout md-align="center" md-gutter="16">
           <md-layout md-flex="35">
               <md-input-container class="text-area">
                 <label>Enter text</label>
                   <md-textarea
                       v-model="text"
-                      rows="10"
-                      cols="50"
                       maxlength="215"
                       autofocus
                   >
@@ -81,6 +79,8 @@ export default {
   }
   .text-area {
     border: 1px solid white;
+    margin-top: 15px;
+    background: white;
   }
 </style>
 

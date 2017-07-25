@@ -1,10 +1,10 @@
 <template>
     <div>
-        <md-layout md-align="center" md-gutter="16">
+        <md-layout md-align="center" md-gutter="16" :style="{marginTop: '20px', backgroundColor: '#616161'}">
             <md-layout md-flex="90">
                 <div class="chart">
                         <freq-dist-chart
-                            :style="{backgroundColor: 'white'}"
+                            :style="{backgroundColor: 'white', padding: '10px'}"
                             :chart-data="chartData"
                             :options="chartOptions"
                             :width="1000"
@@ -38,7 +38,7 @@ export default {
                 labels: [],
                 datasets: [
                     {
-                        label: 'Frequency Distribution',
+                        label: 'Word Frequency Distribution',
                         backgroundColor: '#f87979',
                         data: []
                     }
@@ -112,7 +112,7 @@ export default {
     .chart {
         padding: 5px;
         margin-top: 50px;
-        margin-left: 5%;
+        margin-left: 6%;
        
     }
 </style>
