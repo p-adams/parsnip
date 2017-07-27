@@ -1,0 +1,11 @@
+<template>
+    <v-navigation-drawer
+        class="pb-0"
+        persistent
+        absolute
+        height="100%"
+        clipped
+        enabl-resize-watcher
+        v-model="drawer">
+    </v-navigation-drawer>
+</template>
