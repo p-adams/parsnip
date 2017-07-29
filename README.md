@@ -17,7 +17,7 @@ The target language is currently English; however, there are plans to incorporat
 <ul>
 <li>Tokenization</li>
 <li>Word Frequency Distribution</li>
-<li>Named Entity Recognition</li>
+<li>Named-Entity Recognition</li>
 <li>Lemmatization</li>
 <li>Part of Speech Tagging</li>
 <li>Constituency Parsing</li>
