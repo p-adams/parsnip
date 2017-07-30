@@ -1,13 +1,22 @@
 <template>
     <div>
         <div class="chart">
-                <freq-dist-chart
-                    :style="{backgroundColor: 'white', padding: '10px'}"
-                    :chart-data="chartData"
-                    :options="chartOptions"
-                    :width="1000"
-                    :height="500"
-                ></freq-dist-chart>
+            <freq-dist-chart
+                :style="{backgroundColor: 'white', padding: '10px'}"
+                :chart-data="chartData"
+                :options="chartOptions"
+                :width="1000"
+                :height="500"
+            ></freq-dist-chart>
+            <md-layout md-gutter :style="{background: '#3F51B5'}">
+                <md-layout
+                    md-flex="25"
+                    md-flex-offset="40"
+                >
+                    <md-button @click="this.refresh">Select new text</md-button>
+                </md-layout>
+                <md-layout md-flex="25"></md-layout>
+            </md-layout>
         </div>
     </div>
 </template>
@@ -16,7 +25,7 @@ import FreqDistChart from './chartcomponents/FreqDistChart'
 import axios from 'axios'
 export default {
     name: 'freq-dist',
-    props: ['dist'],
+    props: ['dist', 'refresh'],
     created () {
         console.log(this.dist)
         let labels = []
@@ -55,7 +64,7 @@ export default {
                                 labelString: 'words'
                             },
                             ticks: {
-                                fontSize: 9,
+                                fontSize: 8,
                                 fontColor: 'black',
                             }
                         }],
@@ -106,9 +115,9 @@ export default {
         text-align: center;
     }
     .chart {
-        padding: 5px;
+        width: 800px;
         margin-top: 50px;
-        margin-left: 6%;
-       
+        margin-left: -100px;
+        box-shadow: 5px 5px 5px #616161;
     }
 </style>

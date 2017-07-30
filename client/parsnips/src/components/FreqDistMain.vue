@@ -1,6 +1,6 @@
 <template>
     <md-layout md-align="center">
-      <md-layout md-flex="35">
+      <md-layout md-flex="45">
           <div v-if="!textSubmitted">
             <md-input-container class="container">
               <label v-show="text.length === 0">Enter text</label>
@@ -19,6 +19,7 @@
           </div>
           <freq-dist
               :dist="res"
+              :refresh="refreshText"
               v-else-if="textSubmitted && !isLoading"
             ></freq-dist>
         </md-layout>
@@ -52,6 +53,12 @@ export default {
           this.textSubmitted = true
           })
         .catch(err => console.log(err))
+    },
+    refreshText () {
+      this.textSubmitted = false
+      this.isLoading = false
+      this.text = ""
+      this.res.clear()
     }
   },
   components: {

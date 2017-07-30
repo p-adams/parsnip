@@ -19,7 +19,6 @@ class FreqDistController {
         var  freqs = mutableMapOf<String, Long?>()
         val sent: Sentence = Sentence(f.data)
         val tokens:List<String> = sent.words().filterNot{x -> ";:.,?!-'\"(){}".contains(x)}
-        println(tokens)
         for (t in tokens) {
             if (freqs.containsKey(t)) {
                 freqs.put(t, freqs.get(t)?.plus(1))
