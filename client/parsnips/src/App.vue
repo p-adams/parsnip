@@ -4,7 +4,7 @@
       <md-button class="md-icon-button" @click="toggleLeftSidenav">
         <md-icon>menu</md-icon>
       </md-button>
-      <h2 class="md-title">parsnips</h2>
+      <h1 class="md-title">parsnips</h1>
       <span style="flex: 1;"></span>
       <md-button class="md-icon-button home" @click="home">
         <md-icon>home</md-icon>
@@ -13,12 +13,13 @@
     <md-sidenav class="md-left" ref="leftSidenav" @open="open('Left')" @close="close('Left')">
       <md-toolbar class="md-large">
         <div class="md-toolbar-container">
-          <h3 class="md-title">Supported NLP Features</h3>
+          <h3 class="md-title nav">Supported NLP Features</h3>
         </div>
       </md-toolbar>
     <md-list>
       <md-list-item v-for="(route, key) in routes" :key=key>
-        <router-link :to="route.link">{{route.text}}</router-link>
+        <span class="link"
+              @click="selectRoute(route.name)">{{route.text}}</span>
       </md-list-item>
     </md-list>
     </md-sidenav>
@@ -33,20 +34,24 @@ export default {
     return {
       isOpen: false,
       routes: [
-            {link: "/tokenization", text: "Tokenization"},
-            {link: "/freqdist", text: "Word Frequency Distribution"},
-            {link: "/ner", text: "Named-Entity Recognition"},
-            {link: "/lemma", text: "Lemmatization"},
-            {link: "/pos", text: "Part of Speech Tagging"},
-            {link: "/con-parse", text: "Constituency Parsing"},
-            {link: "/dep-parse", text: "Dependency Parsing"},
-            {link: "/coref-res", text: "Coreference Resolution"},
+            {name: "/tokenization", text: "Tokenization"},
+            {name: "FreqDist", text: "Word Frequency Distribution"},
+            {name: "/ner", text: "Named-Entity Recognition"},
+            {name: "/lemma", text: "Lemmatization"},
+            {name: "/pos", text: "Part of Speech Tagging"},
+            {name: "/con-parse", text: "Constituency Parsing"},
+            {name: "/dep-parse", text: "Dependency Parsing"},
+            {name: "/coref-res", text: "Coreference Resolution"},
       ]
     }
   },
   methods: {
     home () {
       this.$router.push({name: 'Home'})
+    },
+    selectRoute (name) {
+      this.$router.push(name)
+      this.$refs.leftSidenav.close()
     },
     toggleLeftSidenav() {
       this.$refs.leftSidenav.toggle();
@@ -71,4 +76,8 @@ export default {
   color: white;
   height: 100vh;
 }
+.link {
+  cursor: pointer;
+}
+
 </style>

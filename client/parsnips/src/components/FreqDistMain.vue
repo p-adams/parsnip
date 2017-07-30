@@ -1,27 +1,28 @@
 <template>
-  <div class="freq-dist" :style="{border: '1px solid red'}">
-    <div>
-      <div v-if="!textSubmitted">
-                <textarea
-                    v-model="text"
-                    cols="30"
-                    row="3"
-                    autofocus
-                >
-                </textarea>
-        <br>
-        <button
-          @click="sendText"
-          :disabled="text.length === 0 || text.length > 215"
-        >send text</button>
-      </div>
-      <freq-dist
-          :dist="res"
-          v-else-if="textSubmitted && !isLoading"
-        ></freq-dist>
-    </div>
-    <router-link to="/">return home</router-link>
-  </div>
+    <md-layout md-align="center">
+      <md-layout md-flex="35">
+          <div v-if="!textSubmitted">
+            <md-input-container class="container">
+              <label v-show="text.length === 0">Enter text</label>
+              <md-textarea
+                  v-model="text"
+                  maxlength="215"
+                  autofocus
+              >
+              </md-textarea>
+            </md-input-container>
+            <br>
+            <md-button
+              @click="sendText"
+              :disabled="text.length === 0 || text.length > 215"
+            >send text</md-button>
+          </div>
+          <freq-dist
+              :dist="res"
+              v-else-if="textSubmitted && !isLoading"
+            ></freq-dist>
+        </md-layout>
+      </md-layout>
 </template>
 <script>
 import FreqDist from './FreqDist'
@@ -59,11 +60,8 @@ export default {
 }
 </script>
 <style>
-  .freq-dist {
-    height: 100vh;
-  }
-  textarea {
-    resize: none;
+ .container {
+    margin-top: 50px;
   }
 </style>
 
