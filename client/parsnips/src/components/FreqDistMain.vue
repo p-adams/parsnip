@@ -46,7 +46,6 @@ export default {
         .then(response => {
           console.log(response)
           Object.keys(response.data).forEach(key => {
-              //console.log(key, response.data[key])
               this.res.set(key, response.data[key])
           })
           this.isLoading = false

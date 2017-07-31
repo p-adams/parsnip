@@ -34,7 +34,7 @@ export default {
     return {
       isOpen: false,
       routes: [
-            {name: "/tokenization", text: "Tokenization"},
+            {name: "Tokenization", text: "Tokenization"},
             {name: "FreqDist", text: "Word Frequency Distribution"},
             {name: "/ner", text: "Named-Entity Recognition"},
             {name: "/lemma", text: "Lemmatization"},

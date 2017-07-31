@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import MainPage from '@/components/MainPage'
 import FreqDist from '@/components/FreqDistMain'
-import Tokenize from '@/components/Tokenization'
+import Tokenization from '@/components/Tokenization'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.css'
 Vue.use(Router)
@@ -21,8 +21,8 @@ export default new Router({
     },
     {
       path: '/tokenization',
-      name: 'tokenization',
-      component: Tokenize
+      name: 'Tokenization',
+      component: Tokenization
     }
   ]
 })

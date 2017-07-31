@@ -12,12 +12,12 @@ class TokData {
 @RestController
 class TokenizationController {
 
-    @RequestMapping("/api/tokenize")
+    @RequestMapping("/api/tokenization")
     fun fetchDemoData(): List<String> {
         return Sentence("Colorless green ideas sleep furiously").words()
     }
 
-    @RequestMapping(value = "/api/tokenize", method = arrayOf(RequestMethod.POST))
+    @RequestMapping(value = "/api/tokenization", method = arrayOf(RequestMethod.POST))
     fun getTokenizedText(@RequestBody tokData: TokData): ResponseEntity<List<String>>{
         val tokenized = mutableListOf<String>()
         return ResponseEntity <List<String>>(tokenized, HttpStatus.OK)
