@@ -14,7 +14,7 @@ class TokenizationController {
 
     @RequestMapping("/api/tokenization")
     fun fetchDemoData(): List<String> {
-        return Sentence("Colorless green ideas sleep furiously").words()
+        return Sentence("Colorless green green ideas sleep furiously").words()
     }
 
     @RequestMapping(value = "/api/tokenization", method = arrayOf(RequestMethod.POST))
