@@ -22,16 +22,13 @@
               <md-table-body>
                   <md-table-cell>{{totalTokens}}</md-table-cell>
                   <md-table-cell>{{totalUniqueTokens}}</md-table-cell>
-                  <md-table-row>
-                    <md-layout :style="{border: '1px solid red'}" md-align="center">
-                      <md-layout md-flex="45">
-                        <ul>
-                          <li v-for="(token, key) in tokens" :key="key">
-                            {{token}}
-                          </li>
-                        </ul>
-                      </md-layout>
-                    </md-layout>
+                  <md-table-row :style="{border: '1px solid red'}">
+                    <div>
+                      <h4>{{tokenTitle}}</h4>
+                      <span v-for="(token, key) in tokens" :key="key">
+                        <md-chip class="md-primary">{{token}}</md-chip>
+                      </span>
+                    </div>     
                   </md-table-row>
               </md-table-body>
             </md-table>
@@ -69,6 +66,9 @@ export default {
     },
     totalUniqueTokens () {
       return new Set(this.tokens).size
+    },
+    tokenTitle () {
+      return this.tokens.length > 1 || this.tokens.length === 0 ? 'Tokens' : 'Token'
     }
   }
 }
@@ -78,9 +78,11 @@ export default {
     width: 300px;
     margin-top: 50px;
   }
-  li {
-    list-style: none;
-    display: inline;
+ .md-primary {
+   margin: 5px;
+ }
+  h4 {
+    color: #424242;
   }
 </style>
 
