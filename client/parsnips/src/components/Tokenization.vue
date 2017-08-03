@@ -29,17 +29,29 @@
                   </md-table-cell>
                   <md-table-row>
                      <md-table-cell>
-                      <md-radio v-model="radio5" id="my-test13" name="my-test-group4" md-value="1" class="md-primary">View all tokens</md-radio>
+                      <md-radio
+                        v-model="tokenOption"
+                        id="show-all"
+                        name="show-tokens"
+                        md-value="1"
+                        class="md-primary"
+                      >View all</md-radio>
                     </md-table-cell>
                     <md-table-cell>
-                       <md-radio v-model="radio5" id="my-test13" name="my-test-group4" md-value="1" class="md-primary">View unique tokens</md-radio>
+                       <md-radio
+                        v-model="tokenOption"
+                        id="show-unique"
+                        name="show-tokens"
+                        md-value="2"
+                        class="md-primary"
+                      >View unique</md-radio>
                     </md-table-cell>
                   </md-table-row>
               </md-table-body>
             </md-table>
              <h4>{{tokenTitle}}</h4>
              <div class="token-chips">
-              <span v-for="(token, key) in tokens" :key="key">
+              <span v-for="(token, key) in showTokens" :key="key">
                 <md-chip class="md-primary">{{token}}</md-chip>
               </span>
             </div>     
@@ -57,6 +69,7 @@ export default {
   },
   data () {
     return {
+      tokenOption: '1',
       tokens: []
     }
   },
@@ -81,6 +94,9 @@ export default {
     },
     tokenTitle () {
       return this.tokens.length > 1 || this.tokens.length === 0 ? 'Tokens' : 'Token'
+    },
+    showTokens() {
+      return this.tokenOption === '1' ? this.tokens : Array.from(new Set(this.tokens))
     }
   }
 }
