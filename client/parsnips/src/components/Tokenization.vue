@@ -23,7 +23,7 @@
                   <md-table-cell>{{totalTokens}}</md-table-cell>
                   <md-table-cell>{{totalUniqueTokens}}</md-table-cell>
                   <md-table-row>
-                    <md-layout md-align="center">
+                    <md-layout :style="{border: '1px solid red'}" md-align="center">
                       <md-layout md-flex="45">
                         <ul>
                           <li v-for="(token, key) in tokens" :key="key">
