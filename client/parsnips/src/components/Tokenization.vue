@@ -1,4 +1,5 @@
 <template>
+  <div class="tok-comp">
     <md-layout md-align="center">
       <md-layout md-flex="45">
         <div>
@@ -20,21 +21,32 @@
                 </md-table-row>
               </md-table-header>
               <md-table-body>
-                  <md-table-cell>{{totalTokens}}</md-table-cell>
-                  <md-table-cell>{{totalUniqueTokens}}</md-table-cell>
-                  <md-table-row :style="{border: '1px solid red'}">
-                    <div>
-                      <h4>{{tokenTitle}}</h4>
-                      <span v-for="(token, key) in tokens" :key="key">
-                        <md-chip class="md-primary">{{token}}</md-chip>
-                      </span>
-                    </div>     
+                  <md-table-cell>
+                    <span class="count">{{totalTokens}}</span>
+                  </md-table-cell>
+                  <md-table-cell>
+                    <span class="count">{{totalUniqueTokens}}</span>
+                  </md-table-cell>
+                  <md-table-row>
+                     <md-table-cell>
+                      <md-radio v-model="radio5" id="my-test13" name="my-test-group4" md-value="1" class="md-primary">View all tokens</md-radio>
+                    </md-table-cell>
+                    <md-table-cell>
+                       <md-radio v-model="radio5" id="my-test13" name="my-test-group4" md-value="1" class="md-primary">View unique tokens</md-radio>
+                    </md-table-cell>
                   </md-table-row>
               </md-table-body>
             </md-table>
+             <h4>{{tokenTitle}}</h4>
+             <div class="token-chips">
+              <span v-for="(token, key) in tokens" :key="key">
+                <md-chip class="md-primary">{{token}}</md-chip>
+              </span>
+            </div>     
         </div>
       </md-layout>
     </md-layout>
+  </div>
 </template>
 <script>
 import axios from 'axios'
@@ -74,15 +86,23 @@ export default {
 }
 </script>
 <style scoped>
-  .container {
+.container {
     width: 300px;
     margin-top: 50px;
-  }
- .md-primary {
+}
+.count {
+  font-weight: bolder;
+}
+.md-primary {
    margin: 5px;
- }
-  h4 {
-    color: #424242;
-  }
+}
+h4 {
+  color: #424242;
+}
+.token-chips {
+  height: 200px;
+  overflow: scroll;
+}
+
 </style>
 

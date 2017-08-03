@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="main">
+    
     Main Page
   </div>
 </template>
@@ -34,9 +35,5 @@ export default {
   }
 }
 </script>
-<style>
-  .md-icon-button.home {
-    border: 1px solid white;
-    
-  }
-</style>
+
+
