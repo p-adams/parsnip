@@ -6,11 +6,17 @@
           <md-input-container class="container">
               <label>Enter text</label>
               <md-textarea
+                  v-model="text"
                   maxlength="500"
                   autofocus
               >
               </md-textarea>
             </md-input-container>
+          <md-button
+            class="md-raised"
+            @click="tokenize"
+            :disabled="text.length === 0"
+            >Tokenize</md-button>
         </div>
         <div>
             <md-table>
@@ -70,6 +76,7 @@ export default {
   data () {
     return {
       tokenOption: '1',
+      text: '',
       tokens: []
     }
   },
@@ -83,6 +90,20 @@ export default {
       .catch(err => {
         console.log(err)
       })
+    },
+    tokenize () {
+      this.tokens = []
+      axios.post('api/tokenization', {
+        data: this.text
+      })
+      .then(res => {
+        console.log(res.data)
+        this.tokens.push(...res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+      this.text = ''
     }
   },
   computed: {

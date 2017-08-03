@@ -19,7 +19,7 @@ class TokenizationController {
 
     @RequestMapping(value = "/api/tokenization", method = arrayOf(RequestMethod.POST))
     fun getTokenizedText(@RequestBody tokData: TokData): ResponseEntity<List<String>>{
-        val tokenized = mutableListOf<String>()
+        val tokenized = Sentence(tokData.data).words()
         return ResponseEntity <List<String>>(tokenized, HttpStatus.OK)
     }
 }
