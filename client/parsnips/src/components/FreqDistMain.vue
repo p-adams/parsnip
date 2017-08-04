@@ -1,5 +1,6 @@
 <template>
     <md-layout md-align="center">
+      <h2>Word Frequency Distribution</h2>
       <md-layout md-flex="45">
           <div v-if="!textSubmitted">
             <md-input-container class="container">
@@ -44,7 +45,6 @@ export default {
       e.preventDefault()
       axios.post('/api/freq-dist', {data: this.text})
         .then(response => {
-          console.log(response)
           Object.keys(response.data).forEach(key => {
               this.res.set(key, response.data[key])
           })
@@ -67,7 +67,10 @@ export default {
 </script>
 <style>
  .container {
-    margin-top: 50px;
+    margin-top: 100px;
+  }
+  h2 {
+    color: #424242;
   }
 </style>
 

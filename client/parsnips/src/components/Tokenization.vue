@@ -1,6 +1,7 @@
 <template>
   <div class="tok-comp">
     <md-layout md-align="center">
+      <h2>Word Tokenization</h2>
       <md-layout md-flex="45">
         <div>
           <md-input-container class="container">
