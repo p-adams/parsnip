@@ -7,6 +7,7 @@
                 <md-input-container class="container">
                     <label>Enter text</label>
                     <md-textarea
+                        v-model="text"
                         maxlength="500"
                         autofocus
                     >
@@ -14,6 +15,8 @@
                     </md-input-container>
                 <md-button
                     class="md-raised"
+                    @click="getTags"
+                    :disabled="text.length===0"
                     >Create Tags</md-button>
                 </div>
             </md-layout>
@@ -22,19 +25,15 @@
             <md-table-body>
                 <md-table-row>
                     <md-layout md-gutter>
-                        <md-layout class="cell" md-align="center" :style="{background: '#e3f2fd', border: '1px solid red'}" md-flex="50">
+                        <md-layout class="cell" md-align="center" :style="{borderRight: '1px solid #b0bec5'}" md-flex="50">
                             <ner-chart
                                 :chart-data="chartData"
                                 :options="chartOptions"
                                 :height="300"
                             ></ner-chart>
                         </md-layout>
-                        <md-layout class="cell" md-align="center" :style="{background: 'grey'}" md-flex="50">
-                            <ul>
-                                <li v-for="(t, key) in people" :key="key">
-                                    {{t}} {{key}}
-                                </li>
-                            </ul>
+                        <md-layout class="cell" md-align="center" :style="{color: 'gray'}" md-flex="50">
+                            <ner-tags :nertags="results"></ner-tags>
                         </md-layout>
                     </md-layout>         
                 </md-table-row>
@@ -44,24 +43,22 @@
 </template>
 <script>
 import NerChart from './chartcomponents/nerChart'
+import NerTags from './NERTags'
 import axios from 'axios'
 export default {
     created () {
         this.fillPie()
         this.fetchDemoTags()
     },
-    mounted () {
-       
-    },
     data () {
         return {
-           chartData: null,
-           chartOptions: null,
-           isLoading: true,
-           people: [],
-           organizations: [],
-           locations: [],
-           other: [],
+            text: '',
+            chartData: null,
+            chartOptions: null,
+            people: [],
+            organizations: [],
+            locations: [],
+            results: [],
         }
     },
     methods: {
@@ -85,28 +82,57 @@ export default {
             axios.get('api/ner')
             .then(res => {
                 Object.keys(res.data).forEach(key => {
-                if (res.data[key] === 'PERSON') {
-                    this.people.push(key)
-                    this.chartData.datasets[0].data[0] = this.people.length
-                } else if (res.data[key]  === 'ORGANIZATION') {
-                    this.organizations.push(key)
-                    this.chartData.datasets[0].data[1] = this.organizations.length
-                        
-                } else if (res.data[key]  === 'LOCATION') {
-                    this.locations.push(key)
-                     this.chartData.datasets[0].data[2] = this.locations.length
-                } else {
-                    this.other.push(key)
-                }
+                    this.results.push({word: key, tag: res.data[key]})
+                    if (res.data[key] === 'PERSON') {
+                        this.people.push(key)
+                        this.chartData.datasets[0].data[0] = this.people.length
+                    } else if (res.data[key]  === 'ORGANIZATION') {
+                        this.organizations.push(key)
+                        this.chartData.datasets[0].data[1] = this.organizations.length
+                            
+                    } else if (res.data[key]  === 'LOCATION') {
+                        this.locations.push(key)
+                        this.chartData.datasets[0].data[2] = this.locations.length
+                    }
                 })
             })
             .catch(err => {
                 console.log(err)
             })
+        },
+        getTags () {
+            this.emptyArrays()
+            axios.post('api/ner', {data: this.text})
+            .then(res => {
+                console.log(res.data)
+                 Object.keys(res.data).forEach(key => {
+                    this.results.push({word: key, tag: res.data[key]})
+                    if (res.data[key] === 'PERSON') {
+                        this.people.push(key)
+                        this.chartData.datasets[0].data[0] = this.people.length
+                    } else if (res.data[key]  === 'ORGANIZATION') {
+                        this.organizations.push(key)
+                        this.chartData.datasets[0].data[1] = this.organizations.length
+                            
+                    } else if (res.data[key]  === 'LOCATION') {
+                        this.locations.push(key)
+                        this.chartData.datasets[0].data[2] = this.locations.length
+                    }
+                })
+            })
+            .catch(err => {
+                console.log(err)
+            })
+            this.text = ''
+        },
+        emptyArrays () {
+            this.results = []
         }
+
     },
     components: {
-      NerChart
+      NerChart,
+      NerTags
   }
 }
 </script>
@@ -122,6 +148,7 @@ export default {
     }
     .cell {
         height: 50vh;
+        background: #e3f2fd;
     }
     .md-raised {
         float: right;

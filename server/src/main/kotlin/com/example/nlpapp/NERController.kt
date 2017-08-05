@@ -27,7 +27,12 @@ class NERController {
     @RequestMapping("/api/ner")
     fun fetchDemoTags(): MutableMap<String, String> {
         var nerd = NERData()
-        nerd.data = "John from Boston worked tirelessly as a mechanic for Ford"
+        nerd.data = "John from Boston worked tirelessly as a mechanic for Ford in Detroit"
         return createTags(nerd)
+    }
+    @RequestMapping(value="/api/ner", method = arrayOf(RequestMethod.POST))
+    fun getTags(@RequestBody nerd: NERData): ResponseEntity <MutableMap <String, String>> {
+        val result = createTags(nerd)
+        return ResponseEntity <MutableMap<String, String>> (result, HttpStatus.OK)
     }
 }
