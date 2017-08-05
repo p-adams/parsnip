@@ -12,15 +12,22 @@ class NERData {
 
 @RestController
 class NERController {
-    fun createLabels(ndata: NERData): MutableMap<String, String> {
+    fun createTags(ndata: NERData): MutableMap<String, String> {
         var res = mutableMapOf<String, String>()
-        
+        val sent = Sentence(ndata.data)
+        val nerTags = sent.nerTags()
+        val tokens = sent.words()
+        for ((index, tag) in nerTags.withIndex()) {
+            res.put(tokens.get(index), tag)
+
+        }
+        println(res)
         return res
     }
     @RequestMapping("/api/ner")
-    fun fetchDemo(): MutableMap<String, String> {
+    fun fetchDemoTags(): MutableMap<String, String> {
         var nerd = NERData()
-        nerd.data = "John from Boston worked tirelessly as a mechanic"
-        return createLabels(nerd)
+        nerd.data = "John from Boston worked tirelessly as a mechanic for Ford"
+        return createTags(nerd)
     }
 }

@@ -97,12 +97,6 @@ export default {
         populateChart (freq) {
             this.populateLabels(freq)
             this.populateDatasets
-        },
-        populateLabels (freq) {
-            
-        },
-        populateDatasets (freq) {
-
         }
     },
     components: {
