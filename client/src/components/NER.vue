@@ -25,15 +25,15 @@
             <md-table-body>
                 <md-table-row>
                     <md-layout md-gutter>
-                        <md-layout class="cell" md-align="center" :style="{borderRight: '1px solid #b0bec5'}" md-flex="50">
-                            <ner-chart
-                                :chart-data="chartData"
-                                :options="chartOptions"
-                                :height="300"
-                            ></ner-chart>
-                        </md-layout>
-                        <md-layout class="cell" md-align="center" :style="{color: 'gray'}" md-flex="50">
-                            <ner-tags :nertags="results"></ner-tags>
+                        <md-layout
+                            class="cell"
+                            md-align="center"
+                            :style="{color: 'gray'}"
+                            md-flex="100"
+                        >
+                            <ner-tags
+                                :nertags="results"
+                            ></ner-tags>
                         </md-layout>
                     </md-layout>         
                 </md-table-row>
@@ -42,96 +42,49 @@
     </div>
 </template>
 <script>
-import NerChart from './chartcomponents/nerChart'
 import NerTags from './NERTags'
 import axios from 'axios'
 export default {
     created () {
-        this.fillPie()
         this.fetchDemoTags()
     },
     data () {
         return {
             text: '',
-            chartData: null,
-            chartOptions: null,
-            people: [],
-            organizations: [],
-            locations: [],
             results: [],
         }
     },
     methods: {
-        fillPie () {
-            this.chartData = {
-                labels: ['PERSON', 'OCCUPATION', 'LOCATION'],
-                datasets: [
-                    {
-                        label: 'Data One',
-                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCD56'],
-                        data: []
-                    }
-                ]
-            }
-            this.chartOptions = {
-                responsive: true,
-                maintainAspectRatio: false
-            }
-        },
         fetchDemoTags () {
             axios.get('api/ner')
             .then(res => {
-                Object.keys(res.data).forEach(key => {
-                    this.results.push({word: key, tag: res.data[key]})
-                    if (res.data[key] === 'PERSON') {
-                        this.people.push(key)
-                        this.chartData.datasets[0].data[0] = this.people.length
-                    } else if (res.data[key]  === 'ORGANIZATION') {
-                        this.organizations.push(key)
-                        this.chartData.datasets[0].data[1] = this.organizations.length
-                            
-                    } else if (res.data[key]  === 'LOCATION') {
-                        this.locations.push(key)
-                        this.chartData.datasets[0].data[2] = this.locations.length
-                    }
-                })
+               this.processData(res.data)
             })
             .catch(err => {
                 console.log(err)
             })
         },
         getTags () {
-            this.emptyArrays()
             axios.post('api/ner', {data: this.text})
-            .then(res => {
-                console.log(res.data)
-                 Object.keys(res.data).forEach(key => {
-                    this.results.push({word: key, tag: res.data[key]})
-                    if (res.data[key] === 'PERSON') {
-                        this.people.push(key)
-                        this.chartData.datasets[0].data[0] = this.people.length
-                    } else if (res.data[key]  === 'ORGANIZATION') {
-                        this.organizations.push(key)
-                        this.chartData.datasets[0].data[1] = this.organizations.length
-                            
-                    } else if (res.data[key]  === 'LOCATION') {
-                        this.locations.push(key)
-                        this.chartData.datasets[0].data[2] = this.locations.length
-                    }
-                })
+            .then(res => {  
+                this.reset()
+                this.processData(res.data)
             })
             .catch(err => {
                 console.log(err)
             })
             this.text = ''
         },
-        emptyArrays () {
-            this.results = []
+        processData (data) {
+            Object.keys(data).forEach(key => {
+                this.results.push({word: key, tag: data[key]})
+            })
+        },
+        reset () {
+            this.results.splice(0, this.results.length)
         }
-
     },
     components: {
-      NerChart,
       NerTags
   }
 }
@@ -141,7 +94,7 @@ export default {
         color: #424242;
     }
     .container {
-        margin-top: 40px;
+        margin-top: 85px;
     }
     .table {
         margin-top: 30px;

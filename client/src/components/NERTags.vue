@@ -1,6 +1,6 @@
 <template>
     <ul>
-        <li v-for="(ntag, index) in nertags" :key="index">
+        <li v-for="(ntag, index) in tags" :key="index">
             <span
             :class="{
                 person: ntag.tag === 'PERSON',
@@ -12,22 +12,34 @@
 </template>
 <script>
 export default {
-  props: ['nertags']
+    name: 'ner-tags',
+    props: ['nertags'],
+    data () {
+        return {
+            tags: this.nertags
+        }
+    }
 }
 </script>
 <style>
+    ul {
+        margin-top: 50px;
+    }
     li {
         list-style-type: none;
         display: inline;
     }
     .person {
-        color: #FF6384
+        color: #FF6384;
+        font-size: 25px;
     }
     .organization {
         color: #36A2EB;
+        font-size: 25px;
     }
     .location {
         color: #FFCD56;
+        font-size: 25px;
     }
 </style>
 
