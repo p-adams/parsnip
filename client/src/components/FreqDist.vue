@@ -111,7 +111,7 @@ export default {
     .chart {
         width: 800px;
         margin-top: 50px;
-        margin-left: -100px;
+        margin-left: -200px;
         box-shadow: 5px 5px 5px #616161;
     }
 </style>

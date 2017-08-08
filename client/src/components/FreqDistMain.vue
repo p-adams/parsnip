@@ -14,6 +14,7 @@
             </md-input-container>
             <br>
             <md-button
+              class="md-raised md-primary"
               @click="sendText"
               :disabled="text.length === 0 || text.length > 215"
             >send text</md-button>

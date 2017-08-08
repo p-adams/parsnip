@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <md-toolbar md-theme="green">
+    <md-toolbar :style="{background: '#81c784', color: 'white'}">
       <md-button class="md-icon-button" @click="toggleLeftSidenav">
         <md-icon>menu</md-icon>
       </md-button>
@@ -71,8 +71,7 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #81c784;
-  color: white;
+  background: white;
   height: 100vh;
 }
 .link {
