@@ -36,8 +36,8 @@ export default {
       routes: [
             {name: "Tokenization", text: "Tokenization"},
             {name: "FreqDist", text: "Word Frequency Distribution"},
-            {name: "/ner", text: "Named-Entity Recognition"},
-            {name: "/lemma", text: "Lemmatization"},
+            {name: "NER", text: "Named-Entity Recognition"},
+            {name: "Lemma", text: "Lemmatization"},
             {name: "/pos", text: "Part of Speech Tagging"},
             {name: "/con-parse", text: "Constituency Parsing"},
             {name: "/dep-parse", text: "Dependency Parsing"},

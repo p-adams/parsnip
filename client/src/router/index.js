@@ -4,6 +4,7 @@ import MainPage from '@/components/MainPage'
 import FreqDist from '@/components/FreqDistMain'
 import Tokenization from '@/components/Tokenization'
 import NER from '@/components/NER'
+import Lemma from '@/components/Lemma'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.css'
 Vue.use(Router)
@@ -29,6 +30,11 @@ export default new Router({
       path: '/ner',
       name: 'NER',
       component: NER
+    },
+    {
+      path: '/lemma',
+      name: 'Lemma',
+      component: Lemma
     }
   ]
 })
