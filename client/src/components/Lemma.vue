@@ -1,7 +1,7 @@
 <template>
   <div>
        <md-layout md-align="center">
-            <h2>Lemmatization</h2>
+            <h2>Lemmatizer</h2>
             <md-layout md-flex="45">
                 <div>
                 <md-input-container class="container">
@@ -15,9 +15,13 @@
                     </md-input-container>
                 <md-button
                     class="md-raised"
-                    @click="getLemmas"
                     :disabled="text.length===0"
                     >lemmatize</md-button>
+                    <ul>
+                        <li v-for="(lemma, index) in lemmas" :key="index">
+                            {{lemma}}
+                        </li>
+                    </ul>
                 </div>
             </md-layout>
         </md-layout>
@@ -27,16 +31,27 @@
 import axios from 'axios'
 export default {
   name: 'lemma',
+  created () {
+      this.fetchDemoLemmas()
+  },
   data () {
       return {
-        text: ''
+        text: '',
+        lemmas: [],
+        lemmaMap: new Map()
       }
   },
   methods: {
     fetchDemoLemmas () {
+        this.lemmaMap.clear()
+        this.lemmas = []
         axios.get('api/lemma')
         .then(res => {
             console.log(res)
+            Object.keys(res.data).forEach(key => {
+                console.log(key, res.data[key])
+                this.lemmas.push(...this.lemmaMap.set(res.data[key], key))
+            })
         })
         .catch(err => {
             console.log(err)
