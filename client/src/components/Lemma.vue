@@ -37,20 +37,17 @@ export default {
   data () {
       return {
         text: '',
-        lemmas: [],
-        lemmaMap: new Map()
+        lemmas: []
       }
   },
   methods: {
     fetchDemoLemmas () {
-        this.lemmaMap.clear()
-        this.lemmas = []
         axios.get('api/lemma')
         .then(res => {
             console.log(res)
             Object.keys(res.data).forEach(key => {
                 console.log(key, res.data[key])
-                this.lemmas.push(...this.lemmaMap.set(res.data[key], key))
+                this.lemmas.push({word: res.data[key], count: key})
             })
         })
         .catch(err => {
