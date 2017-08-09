@@ -1,4 +1,6 @@
 # parsnips
+> parse and analyze text snippets using CoreNLP
+
 An interactive NLP sandbox.
 
 Parnips is a web application built upon Stanford's state-of-the-art NLP toolkit <a href="https://stanfordnlp.github.io/CoreNLP/index.html">CoreNLP</a>. 
