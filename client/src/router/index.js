@@ -6,6 +6,7 @@ import Tokenization from '@/components/Tokenization'
 import NER from '@/components/NER'
 import Lemma from '@/components/Lemma'
 import POS from '@/components/POS'
+import Parser from '@/components/Parser'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.css'
 Vue.use(Router)
@@ -41,6 +42,11 @@ export default new Router({
       path: '/pos',
       name: 'POS',
       component: POS
+    },
+    {
+      path: '/parse',
+      name: 'Parse',
+      component: Parser
     }
   ]
 })

@@ -39,7 +39,7 @@ export default {
             {name: "NER", text: "Named-Entity Recognition"},
             {name: "Lemma", text: "Lemmatization"},
             {name: "POS", text: "Part of Speech Tagging"},
-            {name: "DepParse", text: "Dependency Parsing"}
+            {name: "Parse", text: "Constituency Parsing"}
       ]
     }
   },
