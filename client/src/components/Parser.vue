@@ -19,15 +19,19 @@
                     >tag</md-button>
                 <p v-if="!clicked">Input: {{demoText}}</p>
                 <p v-else>Input: {{text}}</p>
-                {{result}}
                 </div>
+                 <md-card>
+                    <md-card-content>
+                        {{result}}
+                    </md-card-content>
+                </md-card>
             </md-layout>
         </md-layout>
 </template>
 <script>
 import axios from 'axios'
 export default {
-  name: 'dep-parser',
+  name: 'parser',
   created () {
       this.fetchDemoDeps()
   },

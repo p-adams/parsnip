@@ -21,7 +21,7 @@
                 </div>
             </md-layout>
         </md-layout>
-        <md-table class="table" v-once>
+        <md-table class="table" v-if="!isLoading">
             <md-table-body>
                 <md-table-row>
                     <md-layout md-gutter>
@@ -51,6 +51,7 @@ export default {
     data () {
         return {
             text: '',
+            isLoading: true,
             results: [],
         }
     },
@@ -58,7 +59,8 @@ export default {
         fetchDemoTags () {
             axios.get('api/ner')
             .then(res => {
-               this.processData(res.data)
+                this.isLoading = false
+                this.processData(res.data)
             })
             .catch(err => {
                 console.log(err)

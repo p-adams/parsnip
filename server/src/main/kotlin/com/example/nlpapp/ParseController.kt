@@ -14,6 +14,7 @@ class Parse {
 class ParseController {
     fun fetchDeps(p: Parse): String{
         val res = Sentence(p.data).parse()
+        res.flatten()
         return res.toString()
     }
 
