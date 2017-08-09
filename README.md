@@ -24,3 +24,26 @@ The target language is currently English; however, there are plans to incorporat
 <li>Part of Speech Tagging</li>
 <li>Constituency Parsing</li>
 </ul>
+
+#### Usage
+Clone repo
+
+`git clone https://github.com/p-adams/parsnips`
+
+Start the server:
+
+`cd parsnips/server`
+
+Build project: `mvn build`
+
+Run JAR file: `java -jar target/nlp-app-0.0.1-SNAPSHOT.jar`
+
+Starts server on port 3000
+
+Start client dev server:
+
+`cd parsnips/client && npm run dev`
+
+
+
+
