@@ -6,7 +6,7 @@
                 person: ntag.tag === 'PERSON',
                 organization: ntag.tag === 'ORGANIZATION',
                 location: ntag.tag === 'LOCATION'
-            }"> {{ntag.word}}</span>
+            }"> {{ntag.word}} <md-tooltip md-direction="top">{{ntag.tag}}</md-tooltip></span>
         </li>
     </ul>
 </template>

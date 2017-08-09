@@ -31,7 +31,7 @@ export const TagSet = function(tag) {
         case 'VBG': return 'Verb, gerund/present pple'
         case 'VBN': return 'Verb, past participle'
         case 'VBP': return 'Verb, non-3rd ps. sg. present'
-        case 'VBZ': return 'Ver, 3rd ps. sg. present'
+        case 'VBZ': return 'Verb, 3rd ps. sg. present'
         case 'WDT': return 'Wh-determiner'
         case 'WP': return 'Wh-pronoun'
         case 'WP$': return 'Possessive wh-pronoun'

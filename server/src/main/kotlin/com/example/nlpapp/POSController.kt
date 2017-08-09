@@ -14,8 +14,7 @@ class POSController {
     fun fetchPOSTags(p: POS): MutableMap<String, String> {
         var res = mutableMapOf<String, String>()
         val sent = Sentence(p.data)
-        val tokens = sent.words().filterNot{x -> ";:.,?!-'\"(){}".contains(x)}
-        println(tokens)
+        val tokens = sent.words()
         val posTags = sent.posTags()
         for ((index, tag) in posTags.withIndex()) {
             println("${tokens.get(index)} $tag")
@@ -30,5 +29,9 @@ class POSController {
         pos.data = "Colorless green ideas sleep furiously"
         return fetchPOSTags(pos)
 
+    }
+    @RequestMapping(value = "/api/pos", method = arrayOf(RequestMethod.POST))
+    fun getPOSTags(@RequestBody p: POS): ResponseEntity <MutableMap<String, String>> {
+        return ResponseEntity<MutableMap<String, String>>(fetchPOSTags(p), HttpStatus.OK)
     }
 }
