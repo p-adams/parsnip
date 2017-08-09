@@ -19,6 +19,7 @@
                     >tag</md-button>
                 <p v-if="!clicked">Input: {{demoText}}</p>
                 <p v-else>Input: {{text}}</p>
+                {{result}}
                 </div>
             </md-layout>
         </md-layout>
@@ -34,14 +35,26 @@ export default {
       return {
           text: '',
           clicked: false,
-          demoText: 'Colorless green ideas sleep furiously'
+          demoText: 'Colorless green ideas sleep furiously',
+          result: ''
       }
   },
   methods: {
-      parse () {},
+      parse () {
+        this.clicked = true
+        this.result = ''
+        axios.post('api/parse', {data: this.text})
+        .then(res => {
+            this.result = res.data
+        })
+        .catch(err => {
+            console.log(err)
+        })
+      },
       fetchDemoDeps () {
         axios.get('api/parse')
         .then(res => {
+            this.result = res.data
             console.log(res.data)
         })
         .catch(err => {
