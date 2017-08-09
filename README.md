@@ -1,5 +1,5 @@
 # parsnips
-> parse and analyze text using CoreNLP
+> parse and analyze text snippets using CoreNLP
 
 An interactive NLP sandbox.
 
