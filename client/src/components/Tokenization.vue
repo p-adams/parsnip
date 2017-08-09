@@ -14,7 +14,7 @@
               </md-textarea>
             </md-input-container>
           <md-button
-            class="md-raised"
+            class="md-raised md-primary"
             @click="tokenize"
             :disabled="text.length === 0"
             >Tokenize</md-button>

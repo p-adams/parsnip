@@ -30,7 +30,7 @@ class LemmaControllerController {
     @RequestMapping("/api/lemma")
     fun fetchDemoTags(): MutableMap<String, Long?> {
         var lem = Lemma()
-        lem.data = "The frogs hopped from rock to rock"
+        lem.data = "The monkeys jumped from branch to branch"
         return createLemmas(lem)
     }
     @RequestMapping(value = "/api/lemma", method = arrayOf(RequestMethod.POST))

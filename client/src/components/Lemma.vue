@@ -15,14 +15,32 @@
                     </md-input-container>
                 <md-button
                     class="md-raised"
+                    @click="lemmatize"
                     :disabled="text.length===0"
                     >lemmatize</md-button>
-                    <ul>
-                        <li v-for="(lemma, index) in lemmas" :key="index">
-                            {{lemma}}
-                        </li>
-                    </ul>
+                <p v-if="!clicked">Input: {{demoText}}</p>
+                <p v-else>Input: {{text}}</p>
                 </div>
+                <md-table v-if="!isLoading">
+                    <md-table-header>
+                        <md-table-row>
+                        <md-table-head>Lemmatization results</md-table-head>
+                        <md-table-head>Lemma</md-table-head>
+                        <md-table-head md-numeric>Frequency</md-table-head>
+                        </md-table-row>
+                    </md-table-header>
+
+                    <md-table-body>
+                        <md-table-row v-for="(row, index) in lemmas" :key="index">
+                            <md-table-cell>
+                                <span> Original: {{!clicked ? demoTextToTokens[index] : textToTokens[index]}} </span>
+                                </md-table-cell>
+                            <md-table-cell v-for="(col, index) in row" :key="index">
+                               {{col}}
+                            </md-table-cell>
+                        </md-table-row>
+                    </md-table-body>
+                    </md-table>
             </md-layout>
         </md-layout>
   </div>
@@ -37,23 +55,50 @@ export default {
   data () {
       return {
         text: '',
+        clicked: false,
+        isLoading: true,
+        demoText: 'The monkeys jumped from branch to branch',
         lemmas: []
       }
   },
   methods: {
+    lemmatize () {
+        this.lemmas = []
+        this.clicked = true
+        axios.post('api/lemma', {data: this.text})
+        .then(res => {
+            Object.keys(res.data).forEach(key => {
+                console.log(key, res.data[key])
+                this.lemmas.push({lemma: key, count: res.data[key]})
+            })
+            this.isLoading = false
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    },
     fetchDemoLemmas () {
         axios.get('api/lemma')
         .then(res => {
             console.log(res)
             Object.keys(res.data).forEach(key => {
                 console.log(key, res.data[key])
-                this.lemmas.push({word: res.data[key], count: key})
+                this.lemmas.push({lemma: key, count: res.data[key]})
             })
+            this.isLoading = false
         })
         .catch(err => {
             console.log(err)
         })
     }
+  },
+  computed: {
+      textToTokens () {
+          return this.text.split(' ')
+      },
+      demoTextToTokens () {
+          return this.demoText.split(' ')
+      }
   }
 }
 </script>
