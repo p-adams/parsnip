@@ -30,7 +30,7 @@ Clone repo
 
 `git clone https://github.com/p-adams/parsnips`
 
-Start the server:
+##### Start Spring server:
 
 `cd parsnips/server`
 
@@ -40,7 +40,7 @@ Run JAR file: `java -jar target/nlp-app-0.0.1-SNAPSHOT.jar`
 
 Starts server on port 3000
 
-Start client dev server:
+##### Start dev server:
 
 `cd parsnips/client && npm run dev`
 
