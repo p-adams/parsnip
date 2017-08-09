@@ -66,7 +66,7 @@ export default {
         },
         getTags () {
             axios.post('api/ner', {data: this.text})
-            .then(res => {  
+            .then(res => {
                 this.reset()
                 this.processData(res.data)
             })

@@ -13,10 +13,12 @@ class POS {
 class POSController {
     fun fetchPOSTags(p: POS): MutableMap<String, String> {
         var res = mutableMapOf<String, String>()
-        var sent = Sentence(p.data)
-        var tokens = sent.words()
+        val sent = Sentence(p.data)
+        val tokens = sent.words().filterNot{x -> ";:.,?!-'\"(){}".contains(x)}
+        println(tokens)
         val posTags = sent.posTags()
         for ((index, tag) in posTags.withIndex()) {
+            println("${tokens.get(index)} $tag")
             res.put(tokens.get(index), tag)
 
         }
