@@ -5,6 +5,7 @@ import FreqDist from '@/components/FreqDistMain'
 import Tokenization from '@/components/Tokenization'
 import NER from '@/components/NER'
 import Lemma from '@/components/Lemma'
+import POS from '@/components/POS'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.css'
 Vue.use(Router)
@@ -35,6 +36,11 @@ export default new Router({
       path: '/lemma',
       name: 'Lemma',
       component: Lemma
+    },
+    {
+      path: '/pos',
+      name: 'POS',
+      component: POS
     }
   ]
 })

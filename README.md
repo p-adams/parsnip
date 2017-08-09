@@ -21,5 +21,4 @@ The target language is currently English; however, there are plans to incorporat
 <li>Lemmatization</li>
 <li>Part of Speech Tagging</li>
 <li>Dependency Parsing</li>
-<li>Coreference Resolution</li>
 </ul>

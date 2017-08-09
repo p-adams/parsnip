@@ -38,9 +38,8 @@ export default {
             {name: "FreqDist", text: "Word Frequency Distribution"},
             {name: "NER", text: "Named-Entity Recognition"},
             {name: "Lemma", text: "Lemmatization"},
-            {name: "/pos", text: "Part of Speech Tagging"},
-            {name: "/dep-parse", text: "Dependency Parsing"},
-            {name: "/coref-res", text: "Coreference Resolution"},
+            {name: "POS", text: "Part of Speech Tagging"},
+            {name: "DepParse", text: "Dependency Parsing"}
       ]
     }
   },
