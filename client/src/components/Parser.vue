@@ -22,7 +22,7 @@
                 </div>
                  <md-card v-if="!isLoading">
                     <md-card-content>
-                        {{result}}
+                        <p class="res">{{result}}</p>
                     </md-card-content>
                 </md-card>
                 <div>
@@ -65,7 +65,6 @@ export default {
             this.result = res.data
             this.isLoading = false
             console.log(res.data)
-            console.log(TreeProcessor.parse(res.data))
         })
         .catch(err => {
             console.log(err)
@@ -77,6 +76,10 @@ export default {
 <style>
     .container {
         margin-top: 75px;
+    }
+    .res {
+        font-size: 25px;
+        color: #616161;
     }
 </style>
 

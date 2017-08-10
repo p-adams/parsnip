@@ -1,8 +1,10 @@
 <template>
-  <div class="main">
-    
-    Main Page
-  </div>
+  <md-layout md-align="center">
+      <md-layout :style="{marginTop: '25px'}" md-flex="25">
+      <h2>Parsnips</h2>
+      <h4>Parse and analyze text snippets using CoreNLP</h4>
+    </md-layout>
+  </md-layout>
 </template>
 <script>
 export default {
@@ -35,5 +37,14 @@ export default {
   }
 }
 </script>
+<style scoped>
+  h2 {
+    font-size: 50px;
+  }
+  h4 {
+    color: #616161;
+  }
+</style>
+
 
 
