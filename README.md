@@ -40,9 +40,17 @@ Run JAR file: `java -jar target/nlp-app-0.0.1-SNAPSHOT.jar`
 
 Starts server on port 3000
 
-##### Start dev server:
+##### Start client dev server:
 
-`cd parsnips/client && npm run dev`
+Install dependencies: `cd parsnips/client && npm install`
+
+Start server: `npm run dev`
+
+### Todo
+
+<ul>
+  <li>Create tree hierarchy interface for parser feature</li>
+</ul>
 
 
 
