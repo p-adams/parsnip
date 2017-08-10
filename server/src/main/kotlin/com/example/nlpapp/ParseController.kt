@@ -4,7 +4,9 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import edu.stanford.nlp.simple.*
 import edu.stanford.nlp.trees.Tree
+import jdk.nashorn.internal.parser.JSONParser
 import org.springframework.web.bind.annotation.*
+
 
 class Parse {
     var data = ""
@@ -14,7 +16,6 @@ class Parse {
 class ParseController {
     fun fetchDeps(p: Parse): String{
         val res = Sentence(p.data).parse()
-        res.flatten()
         return res.toString()
     }
 

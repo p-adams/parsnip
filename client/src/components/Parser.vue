@@ -20,16 +20,30 @@
                 <p v-if="!clicked">Input: {{demoText}}</p>
                 <p v-else>Input: {{text}}</p>
                 </div>
-                 <md-card>
+                 <md-card v-if="!isLoading">
                     <md-card-content>
                         {{result}}
                     </md-card-content>
                 </md-card>
+                <div v-for="(foo, index) in lSub" :key="index">
+                    <div v-for="(meow, index) in foo" :key="index">
+                        <span :style="{border: '1px solid red'}">
+                            {{meow}}
+                        </span>
+                    </div>
+                </div>
+
+                <div v-for="(foo, index) in rSub" :key="index">
+                    <div v-for="(meow, index) in foo" :key="index">
+                        {{meow}}
+                    </div>
+                </div>
             </md-layout>
         </md-layout>
 </template>
 <script>
 import axios from 'axios'
+import {TreeProcessor} from './TreeProcessor'
 export default {
   name: 'parser',
   created () {
@@ -38,9 +52,12 @@ export default {
   data () {
       return {
           text: '',
+          isLoading: true,
           clicked: false,
           demoText: 'Colorless green ideas sleep furiously',
-          result: ''
+          result: '',
+          lSub: [],
+          rSub: []
       }
   },
   methods: {
@@ -59,6 +76,12 @@ export default {
         axios.get('api/parse')
         .then(res => {
             this.result = res.data
+            this.isLoading = false
+            console.log(TreeProcessor(res.data))
+            let tree = TreeProcessor(res.data)[1]
+            
+            this.lSub.push(tree[1])
+            this.rSub.push(tree[2])
             console.log(res.data)
         })
         .catch(err => {
