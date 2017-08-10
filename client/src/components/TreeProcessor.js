@@ -13,6 +13,6 @@ String.prototype.parseSexpr = function() {
 	return c ? undefined : eval(t.join(''))
 }
 
-export const TreeProcessor = function(str) {
-    return str.parseSexpr()
+export const TreeProcessor =  {
+	parse: (str) => str.parseSexpr()
 }

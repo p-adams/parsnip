@@ -32,6 +32,7 @@
 </template>
 <script>
 import axios from 'axios'
+import {TreeProcessor} from './TreeProcessor'
 export default {
   name: 'parser',
   created () {
@@ -64,6 +65,7 @@ export default {
             this.result = res.data
             this.isLoading = false
             console.log(res.data)
+            console.log(TreeProcessor.parse(res.data))
         })
         .catch(err => {
             console.log(err)
