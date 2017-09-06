@@ -3,12 +3,13 @@
       <md-layout :style="{marginTop: '25px'}" md-flex="25">
       <h2>Parsnips</h2>
       <h4>Parse and analyze text snippets using CoreNLP</h4>
-      {{res}}
+      {{treeData}}
     </md-layout>
   </md-layout>
 </template>
 <script>
 import axios from 'axios'
+import elp from 'elparser'
 export default {
   name: 'main-page',
   created () {
@@ -16,7 +17,9 @@ export default {
   },
   data () {
     return {
-      res: '',
+      treeData: '',
+      lc: '',
+      rc: '',
       isOpen: false,
       routes: [
             {link: "/tokenization", text: "Tokenization"},
@@ -40,32 +43,20 @@ export default {
     close(ref) {
       console.log('Closed: ' + ref);
     },
-    balancedParens (str) {
-      var stack = [];
-      var open = { '{': '}', '[': ']', '(': ')' };
-      var closed = { '}': true, ']': true, ')': true };
-      
-      for (var i = 0; i < str.length; i ++) {
-        var chr = str[i];
-        if (open[chr]) {
-          stack.push(chr);
-        } else if (closed[chr]) {
-          if (open[stack.pop()] !== chr) return false;
-        }
-      }
-      return stack.length === 0;
-    },
-    parseData (data) {
-      let str = data.substring(data.indexOf('S'), data.length - 2)
-      console.log(str)
-      let idx = str.indexOf('(')
-      console.log(idx)
-      console.log(this.balancedParens(str.slice(idx + 1)))
-    },
     loadParsedData () {
       axios.get('api')
         .then(res => {
-          this.parseData(res.data)
+          let sent = elp
+                      .parse1('(' + res.data + ')')
+                      .toObject()
+          console.log(sent['S'][1])
+          /*this.lc = sent[0]
+          this.r.push({name: this.lc[0], children:[]})
+          this.lc.splice(1).forEach(el => {
+            this.r.push({children: children.push(el)})
+          })
+          console.log(r)
+          this.rc = sent[1]*/
         })
         .catch(err => {
           console.log(err)

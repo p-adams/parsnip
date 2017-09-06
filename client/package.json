@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "chart.js": "^2.6.0",
+    "elparser": "0.0.9",
     "vue": "^2.3.3",
     "vue-chartjs": "^2.7.1",
     "vue-material": "^0.7.4",
