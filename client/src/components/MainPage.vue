@@ -1,9 +1,8 @@
 <template>
   <md-layout md-align="center">
-      <md-layout :style="{marginTop: '25px'}" md-flex="25">
+      <md-layout :style="{marginTop: '25px'}" md-flex="30">
       <h2>Parsnips</h2>
       <h4>Parse and analyze text snippets using CoreNLP</h4>
-      <h4>colorless green ideas sleep furiously</h4>
       <md-list class="custom-list md-triple-line">
         <md-list-item v-for="(c, key) in lc" :key="key">
           <span v-if="key > 0">{{format(c)}}</span>
@@ -60,21 +59,29 @@ export default {
     loadParsedData () {
       axios.get('api')
         .then(res => {
+          console.log(res.data)
           let sent = elp
                       .parse1('(' + res.data + ')')
-                      .toObject()
-          this.lc = sent['S'][0]
-          this.rc = sent['S'][1]
+                      .toJS()
+          this.treeData = res.data
+          /*let mainTag = Object.keys(sent)
+          this.lc = sent[mainTag[0]][0]
+          this.rc = sent[mainTag[0]][1]*/
         })
         .catch(err => {
           console.log(err)
         })
     },
     format (input) {
-      // console.log(input)
-      // console.log(flattenDeep(input))
+      let obj = {tagabbr: '', tags: '', txt: ''}
       let tags = TagSet(input[0].toString())
-      return `${tags} ${input[1].toString().replace(/,/, ' ')}`
+      obj.tagabbr = input[0].toString()
+      obj.tags = tags
+      obj.txt = input[1].toString()
+      input.forEach(el => {
+        console.log(el)
+      })
+      return obj
     }
   }
 }
