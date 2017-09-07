@@ -62,7 +62,7 @@ export default {
          .then(res => {
              console.log(res)
              Object.keys(res.data).forEach(key => {
-                 console.log(TagSet(res.data[key]))
+                 //console.log(TagSet(res.data[key]))
                  this.posTags.push({word: key, tag: res.data[key], tagset: TagSet(res.data[key])})
              })
              this.isLoading = false

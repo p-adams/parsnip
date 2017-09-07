@@ -3,13 +3,27 @@
       <md-layout :style="{marginTop: '25px'}" md-flex="25">
       <h2>Parsnips</h2>
       <h4>Parse and analyze text snippets using CoreNLP</h4>
-      {{treeData}}
+      <h4>colorless green ideas sleep furiously</h4>
+      <md-list class="custom-list md-triple-line">
+        <md-list-item v-for="(c, key) in lc" :key="key">
+          <span v-if="key > 0">{{format(c)}}</span>
+          <span v-else>{{c}}</span>
+        </md-list-item>
+      </md-list>
+      <md-list class="custom-list md-triple-line">
+        <md-list-item v-for="(c, key) in rc" :key="key">
+          <span v-if="key > 0">{{format(c)}}</span>
+          <span v-else>{{c}}</span>
+        </md-list-item>
+      </md-list>
     </md-layout>
   </md-layout>
 </template>
 <script>
 import axios from 'axios'
 import elp from 'elparser'
+import {TagSet} from './tagset'
+import flattenDeep from 'lodash.flattendeep'
 export default {
   name: 'main-page',
   created () {
@@ -49,18 +63,18 @@ export default {
           let sent = elp
                       .parse1('(' + res.data + ')')
                       .toObject()
-          console.log(sent['S'][1])
-          /*this.lc = sent[0]
-          this.r.push({name: this.lc[0], children:[]})
-          this.lc.splice(1).forEach(el => {
-            this.r.push({children: children.push(el)})
-          })
-          console.log(r)
-          this.rc = sent[1]*/
+          this.lc = sent['S'][0]
+          this.rc = sent['S'][1]
         })
         .catch(err => {
           console.log(err)
         })
+    },
+    format (input) {
+      // console.log(input)
+      // console.log(flattenDeep(input))
+      let tags = TagSet(input[0].toString())
+      return `${tags} ${input[1].toString().replace(/,/, ' ')}`
     }
   }
 }
@@ -70,6 +84,10 @@ export default {
     font-size: 50px;
   }
   h4 {
+    color: #616161;
+  }
+  li {
+    list-style: none;
     color: #616161;
   }
 </style>
