@@ -3,18 +3,33 @@
       <md-layout :style="{marginTop: '25px'}" md-flex="30">
       <h2>Parsnips</h2>
       <h4>Parse and analyze text snippets using CoreNLP</h4>
-      <md-list class="custom-list md-triple-line">
-        <md-list-item v-for="(c, key) in lc" :key="key">
-          <span v-if="key > 0">{{format(c)}}</span>
-          <span v-else>{{c}}</span>
-        </md-list-item>
-      </md-list>
-      <md-list class="custom-list md-triple-line">
-        <md-list-item v-for="(c, key) in rc" :key="key">
-          <span v-if="key > 0">{{format(c)}}</span>
-          <span v-else>{{c}}</span>
-        </md-list-item>
-      </md-list>
+      <!--<div>
+        <div
+          class="lc"
+          v-for="(row, i) in this.lc"
+          :key="i"
+        >
+          <div
+            v-for="(col, i) in row"
+            :key="i"
+          >
+            {{col}}
+          </div>
+        </div>
+
+      <div
+        class="rc"
+        v-for="(row, i) in this.rc"
+        :key="i"
+      >
+        <div
+          v-for="(col, i) in row"
+          :key="i"
+        >
+          {{col}}
+        </div>
+      </div>
+      </div>-->
     </md-layout>
   </md-layout>
 </template>
@@ -22,7 +37,7 @@
 import axios from 'axios'
 import elp from 'elparser'
 import {TagSet} from './tagset'
-import flattenDeep from 'lodash.flattendeep'
+import flatten from 'lodash.flatten'
 export default {
   name: 'main-page',
   created () {
@@ -30,7 +45,8 @@ export default {
   },
   data () {
     return {
-      treeData: '',
+      treeData: [],
+      nestedData: '',
       lc: '',
       rc: '',
       isOpen: false,
@@ -59,29 +75,25 @@ export default {
     loadParsedData () {
       axios.get('api')
         .then(res => {
-          console.log(res.data)
           let sent = elp
-                      .parse1('(' + res.data + ')')
+                      .parse1(res.data)
                       .toJS()
-          this.treeData = res.data
-          /*let mainTag = Object.keys(sent)
-          this.lc = sent[mainTag[0]][0]
-          this.rc = sent[mainTag[0]][1]*/
+
+          this.treeData[0] = sent[0]
+          this.lc = sent[1]
+          this.rc = sent[2]
         })
         .catch(err => {
           console.log(err)
         })
     },
     format (input) {
-      let obj = {tagabbr: '', tags: '', txt: ''}
+      /*let obj = {tagabbr: '', tags: '', txt: ''}
       let tags = TagSet(input[0].toString())
       obj.tagabbr = input[0].toString()
       obj.tags = tags
-      obj.txt = input[1].toString()
-      input.forEach(el => {
-        console.log(el)
-      })
-      return obj
+      obj.txt = input[1].toString()*/
+      if(Array.isArray(input)) this.nestedData = input //console.log(input)
     }
   }
 }
@@ -96,6 +108,20 @@ export default {
   li {
     list-style: none;
     color: #616161;
+  }
+  .lc {
+    border: 1px solid red;
+    width: 50px;
+    height: 100px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+  }
+  .rc {
+    border: 1px solid blue;
+    width: 50px;
+    height: 100px;
+    margin-bottom: 10px;
+    margin-top: 20px;
   }
 </style>
 

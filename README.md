@@ -34,9 +34,7 @@ Clone repo
 
 `cd parsnips/server`
 
-Build project: `mvn build`
-
-Run JAR file: `java -jar target/nlp-app-0.0.1-SNAPSHOT.jar`
+Run `mvn spring-boot:run`
 
 Starts server on port 3000
 

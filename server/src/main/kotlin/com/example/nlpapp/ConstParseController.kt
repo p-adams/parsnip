@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*
 class ConstParseController {
     @RequestMapping("/api")
     fun fetchDemoTags(): String {
-        val sent = Sentence("The quick brown fox jumps over the lazy dog")
+        val sent = Sentence("colorless green ideas sleep furiously")
         println(sent.parse())
         return sent.parse().skipRoot().toString()
     }
