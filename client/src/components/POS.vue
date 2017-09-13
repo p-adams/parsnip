@@ -61,10 +61,7 @@ export default {
          axios.get('api/pos')
          .then(res => {
              console.log(res)
-             Object.keys(res.data).forEach(key => {
-                 //console.log(TagSet(res.data[key]))
-                 this.posTags.push({word: key, tag: res.data[key], tagset: TagSet(res.data[key])})
-             })
+             this.processPOSData(res.data.postags)
              this.isLoading = false
          })
          .catch(err => {
@@ -76,15 +73,17 @@ export default {
         this.clicked = true
         axios.post('api/pos', {data: this.text})
         .then(res => {
-            Object.keys(res.data).forEach(key => {
-                 console.log(TagSet(res.data[key]))
-                 this.posTags.push({word: key, tag: res.data[key], tagset: TagSet(res.data[key])})
-             })
+             this.processPOSData(res.data.postags)
              this.isLoading = false
         })
         .catch(err => {
             console.log(err)
         })
+     },
+     processPOSData (data) {
+         data.map(el => {
+             this.posTags.push({word: el[1], tag: el[0], tagset: TagSet(el[0])})
+         })
      }
  },
  computed: {

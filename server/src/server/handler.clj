@@ -11,15 +11,14 @@
 
 
 ;; routes
-; constituency parser
 ; frequency distribution : done
-; lemma
+; lemma: done 
 ; named-entity recognition : done
-; parts-of-speech
-; parse
+; parts-of-speech:
+; parse:
 ; tokenization : done
 
-
+(def demo-sentence "Colorless green ideas sleep furiously")
 
 (defn remove-punct [txt]
   (apply str (remove #((set ";:.,?!-'\"(){}") %) txt)))
@@ -27,11 +26,11 @@
 (defn process-data [data]
   (json/parse-string (slurp data) true))
 
-(defn create-ner-data [tags words]
+(defn assoc-tag-with-word [tags words]
   (map vector tags words))
 
 (defn load-demo-tokens []
-  (let [words (Sentence. "Colorless green ideas sleep furiously")]
+  (let [words (Sentence. demo-sentence)]
     (response {:tokens (.words words)})))
 
 (defn token-handler [txt]
@@ -45,13 +44,13 @@
 (defn load-demo-tags []
   (let [demo "John from Boston worked tirelessly as a mechanic for Ford in Detroit"
         sent (Sentence. (remove-punct demo))
-        result (create-ner-data (.nerTags sent) (.words sent))]
+        result (assoc-tag-with-word (.nerTags sent) (.words sent))]
     (response {:tags result})))
 
 (defn ner-handler [txt]
   (let [sent (Sentence. (remove-punct (get txt :data)))]
     (response
-      {:tags (create-ner-data (.nerTags sent) (.words sent))})))
+      {:tags (assoc-tag-with-word (.nerTags sent) (.words sent))})))
 
 (defn load-demo-lemmas []
   (let [demo "The monkeys jumped from branch to branch"
@@ -63,6 +62,27 @@
   (let [sent (Sentence. (remove-punct (get txt :data)))]
     (response
       {:lemmas (frequencies (.lemmas sent))})))
+
+(defn load-demo-pos-tags []
+  (let [demo (Sentence. demo-sentence)]
+    (response
+      {:postags
+        (assoc-tag-with-word (.posTags demo) (.words demo))})))
+
+(defn pos-tag-handler [txt]
+  (let [sent (Sentence. (remove-punct (get txt :data)))]
+    (response
+      {:postags
+      (assoc-tag-with-word (.posTags sent) (.words sent))})))
+
+(defn load-demo-parse-tree []
+  (let [demo (Sentence. demo-sentence)]
+    (response {:tree (.toString (.parse demo))})))
+
+(defn parse-tree-handler [txt]
+  (let [sent (Sentence. (remove-punct (get txt :data)))]
+    (response
+      {:tree (.toString (.parse sent))})))
 
 (defroutes app-routes
   (GET "/" [] "meow")
@@ -90,6 +110,20 @@
   (POST "/api/lemmas"
     {data :body}
     (lemmas-handler
+      (process-data data)))
+  (GET "/api/pos"
+    []
+    (load-demo-pos-tags))
+  (POST "/api/pos"
+    {data :body}
+    (pos-tag-handler
+      (process-data data)))
+  (GET "/api/parse"
+    []
+    (load-demo-parse-tree))
+  (POST "/api/parse"
+    {data :body}
+    (parse-tree-handler
       (process-data data)))
   (route/not-found "Not Found"))
 

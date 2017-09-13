@@ -36,7 +36,7 @@ import {TreeProcessor} from './TreeProcessor'
 export default {
   name: 'parser',
   created () {
-      this.fetchDemoDeps()
+      this.fetchDemoTree()
   },
   data () {
       return {
@@ -53,18 +53,17 @@ export default {
         this.result = ''
         axios.post('api/parse', {data: this.text})
         .then(res => {
-            this.result = res.data
+            this.result = res.data.tree
         })
         .catch(err => {
             console.log(err)
         })
       },
-      fetchDemoDeps () {
+      fetchDemoTree () {
         axios.get('api/parse')
         .then(res => {
-            this.result = res.data
+            this.result = res.data.tree
             this.isLoading = false
-            console.log(res.data)
         })
         .catch(err => {
             console.log(err)
