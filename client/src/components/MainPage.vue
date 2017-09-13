@@ -3,33 +3,6 @@
       <md-layout :style="{marginTop: '25px'}" md-flex="30">
       <h2>Parsnips</h2>
       <h4>Parse and analyze text snippets using CoreNLP</h4>
-      <!--<div>
-        <div
-          class="lc"
-          v-for="(row, i) in this.lc"
-          :key="i"
-        >
-          <div
-            v-for="(col, i) in row"
-            :key="i"
-          >
-            {{col}}
-          </div>
-        </div>
-
-      <div
-        class="rc"
-        v-for="(row, i) in this.rc"
-        :key="i"
-      >
-        <div
-          v-for="(col, i) in row"
-          :key="i"
-        >
-          {{col}}
-        </div>
-      </div>
-      </div>-->
     </md-layout>
   </md-layout>
 </template>
@@ -40,9 +13,6 @@ import {TagSet} from './tagset'
 import flatten from 'lodash.flatten'
 export default {
   name: 'main-page',
-  created () {
-    this.loadParsedData()
-  },
   data () {
     return {
       treeData: [],
@@ -71,29 +41,6 @@ export default {
     },
     close(ref) {
       console.log('Closed: ' + ref);
-    },
-    loadParsedData () {
-      axios.get('api')
-        .then(res => {
-          let sent = elp
-                      .parse1(res.data)
-                      .toJS()
-
-          this.treeData[0] = sent[0]
-          this.lc = sent[1]
-          this.rc = sent[2]
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
-    format (input) {
-      /*let obj = {tagabbr: '', tags: '', txt: ''}
-      let tags = TagSet(input[0].toString())
-      obj.tagabbr = input[0].toString()
-      obj.tags = tags
-      obj.txt = input[1].toString()*/
-      if(Array.isArray(input)) this.nestedData = input //console.log(input)
     }
   }
 }

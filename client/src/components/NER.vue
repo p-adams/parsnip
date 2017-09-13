@@ -60,7 +60,7 @@ export default {
             axios.get('api/ner')
             .then(res => {
                 this.isLoading = false
-                this.processData(res.data)
+                this.processData(res.data.tags)
             })
             .catch(err => {
                 console.log(err)
@@ -70,7 +70,7 @@ export default {
             axios.post('api/ner', {data: this.text})
             .then(res => {
                 this.reset()
-                this.processData(res.data)
+                this.processData(res.data.tags)
             })
             .catch(err => {
                 console.log(err)
@@ -78,8 +78,8 @@ export default {
             this.text = ''
         },
         processData (data) {
-            Object.keys(data).forEach(key => {
-                this.results.push({word: key, tag: data[key]})
+            data.map(el => {
+                this.results.push({word: el[1], tag: el[0]})
             })
         },
         reset () {

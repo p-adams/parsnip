@@ -27,17 +27,30 @@
 (defn process-data [data]
   (json/parse-string (slurp data) true))
 
+(defn create-ner-data [tags words]
+  (map vector tags words))
+
 (defn load-demo-tokens []
   (let [words (Sentence. "Colorless green ideas sleep furiously")]
-  (response {:tokens (.words words)})))
+    (response {:tokens (.words words)})))
 
 (defn token-handler [txt]
   (let [sent (Sentence. (remove-punct (get txt :data)))]
-  (response {:tokens (.words sent)})))
+    (response {:tokens (.words sent)})))
 
 (defn freq-dist-handler [txt]
   (let [sent (remove-punct (get txt :data))]
-  (response {:dist (frequencies (str/split sent #"\s+"))})))
+    (response {:dist (frequencies (str/split sent #"\s+"))})))
+
+(defn load-demo-tags []
+  (let [demo "John from Boston worked tirelessly as a mechanic for Ford in Detroit"
+        sent (Sentence. (remove-punct demo))
+        result (create-ner-data (.nerTags sent) (.words sent))]
+    (response {:tags result})))
+
+(defn ner-handler [txt]
+  (let [sent (Sentence. (remove-punct (get txt :data)))]
+    (response {:tags (create-ner-data (.nerTags sent) (.words sent))})))
 
 (defn load-demo-lemmas []
   (let [demo "Colorless green ideas sleep furiously"
@@ -55,11 +68,20 @@
   (GET "/api/tokenization"
     []
     (load-demo-tokens))
-  (POST "/api/tokenization" {data :body}
+  (POST "/api/tokenization"
+    {data :body}
     (token-handler
       (process-data data)))
-  (POST "/api/freq-dist" {data :body}
+  (POST "/api/freq-dist"
+    {data :body}
     (freq-dist-handler
+      (process-data data)))
+  (GET "/api/ner"
+    []
+    (load-demo-tags))
+  (POST "/api/ner"
+    {data :body}
+    (ner-handler
       (process-data data)))
   (GET "/api/lemmas"
     []
