@@ -65,11 +65,10 @@ export default {
     lemmatize () {
         this.lemmas = []
         this.clicked = true
-        axios.post('api/lemma', {data: this.text})
+        axios.post('api/lemmas', {data: this.text})
         .then(res => {
-            Object.keys(res.data).forEach(key => {
-                console.log(key, res.data[key])
-                this.lemmas.push({lemma: key, count: res.data[key]})
+            Object.keys(res.data.lemmas).forEach(key => {
+                this.lemmas.push({lemma: key, count: res.data.lemmas[key]})
             })
             this.isLoading = false
         })
@@ -78,12 +77,11 @@ export default {
         })
     },
     fetchDemoLemmas () {
-        axios.get('api/lemma')
+        axios.get('api/lemmas')
         .then(res => {
-            console.log(res)
-            Object.keys(res.data).forEach(key => {
-                console.log(key, res.data[key])
-                this.lemmas.push({lemma: key, count: res.data[key]})
+            console.log(res.data.lemmas)
+            Object.keys(res.data.lemmas).forEach(key => {
+                this.lemmas.push({lemma: key, count: res.data.lemmas[key]})
             })
             this.isLoading = false
         })

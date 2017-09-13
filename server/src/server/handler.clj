@@ -14,7 +14,7 @@
 ; constituency parser
 ; frequency distribution : done
 ; lemma
-; named-entity recognition
+; named-entity recognition : done
 ; parts-of-speech
 ; parse
 ; tokenization : done
@@ -50,18 +50,19 @@
 
 (defn ner-handler [txt]
   (let [sent (Sentence. (remove-punct (get txt :data)))]
-    (response {:tags (create-ner-data (.nerTags sent) (.words sent))})))
+    (response
+      {:tags (create-ner-data (.nerTags sent) (.words sent))})))
 
 (defn load-demo-lemmas []
-  (let [demo "Colorless green ideas sleep furiously"
+  (let [demo "The monkeys jumped from branch to branch"
         sent (Sentence.  demo)]
     (response
-      {:data
-        {:og (remove-punct demo) :lem (.lemmas sent)}})))
+      {:lemmas (frequencies (.lemmas sent))})))
 
 (defn lemmas-handler [txt]
-  (let [processed (remove-punct txt)]
-    (processed)))
+  (let [sent (Sentence. (remove-punct (get txt :data)))]
+    (response
+      {:lemmas (frequencies (.lemmas sent))})))
 
 (defroutes app-routes
   (GET "/" [] "meow")
@@ -87,7 +88,9 @@
     []
     (load-demo-lemmas))
   (POST "/api/lemmas"
-    req (lemmas-handler req))
+    {data :body}
+    (lemmas-handler
+      (process-data data)))
   (route/not-found "Not Found"))
 
 (def app
