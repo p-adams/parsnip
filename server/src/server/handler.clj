@@ -2,6 +2,7 @@
   (import edu.stanford.nlp.simple.Document)
   (import edu.stanford.nlp.simple.Sentence)
   (:require [compojure.core :refer :all]
+            [clojure.string :as str]
             [compojure.route :as route]
             [cheshire.core :as json]
             [ring.middleware.json :refer [wrap-json-response]]
@@ -11,7 +12,7 @@
 
 ;; routes
 ; constituency parser
-; frequency distribution
+; frequency distribution : done
 ; lemma
 ; named-entity recognition
 ; parts-of-speech
@@ -31,11 +32,12 @@
   (response {:tokens (.words words)})))
 
 (defn token-handler [txt]
-  (let [sent (Sentence. (get txt :data))]
+  (let [sent (Sentence. (remove-punct (get txt :data)))]
   (response {:tokens (.words sent)})))
 
-(defn freq-dist-handler []
-  (str "meow"))
+(defn freq-dist-handler [txt]
+  (let [sent (remove-punct (get txt :data))]
+  (response {:dist (frequencies (str/split sent #"\s+"))})))
 
 (defn load-demo-lemmas []
   (let [demo "Colorless green ideas sleep furiously"
@@ -58,7 +60,7 @@
       (process-data data)))
   (POST "/api/freq-dist" {data :body}
     (freq-dist-handler
-      (json/parse-string (slurp data) true)))
+      (process-data data)))
   (GET "/api/lemmas"
     []
     (load-demo-lemmas))

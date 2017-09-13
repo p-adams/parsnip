@@ -46,8 +46,8 @@ export default {
       e.preventDefault()
       axios.post('/api/freq-dist', {data: this.text})
         .then(response => {
-          Object.keys(response.data).forEach(key => {
-              this.res.set(key, response.data[key])
+          Object.keys(response.data.dist).forEach(key => {
+              this.res.set(key, response.data.dist[key])
           })
           this.isLoading = false
           this.textSubmitted = true
