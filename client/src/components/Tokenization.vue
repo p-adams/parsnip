@@ -85,8 +85,7 @@ export default {
     fetchDemoTokens () {
       axios.get('api/tokenization')
       .then(response => {
-        console.log(response.data)
-        this.tokens.push(...response.data)
+        this.tokens.push(...response.data.tokens)
       })
       .catch(err => {
         console.log(err)
@@ -94,12 +93,16 @@ export default {
     },
     tokenize () {
       this.tokens = []
+      console.log(this.text)
       axios.post('api/tokenization', {
+        headers: {
+          'Content-Type': 'application/json'
+        },
         data: this.text
       })
       .then(res => {
-        console.log(res.data)
-        this.tokens.push(...res.data)
+        console.log(res.data.text.data)
+        this.tokens.push(...res.data.text.data)
       })
       .catch(err => {
         console.log(err)
