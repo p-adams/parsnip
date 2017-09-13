@@ -30,11 +30,11 @@ Clone repo
 
 `git clone https://github.com/p-adams/parsnips`
 
-##### Start Spring server:
+##### Start server:
 
 `cd parsnips/server`
 
-Run `mvn spring-boot:run`
+With lein installed, run `lein ring server`
 
 Starts server on port 3000
 
