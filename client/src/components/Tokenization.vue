@@ -95,14 +95,10 @@ export default {
       this.tokens = []
       console.log(this.text)
       axios.post('api/tokenization', {
-        headers: {
-          'Content-Type': 'application/json'
-        },
         data: this.text
       })
       .then(res => {
-        console.log(res.data.text.data)
-        this.tokens.push(...res.data.text.data)
+        this.tokens.push(...res.data.tokens)
       })
       .catch(err => {
         console.log(err)

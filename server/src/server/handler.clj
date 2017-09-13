@@ -28,8 +28,8 @@
   (response {:tokens (.words words)})))
 
 (defn token-handler [txt]
-  (let [sent (Sentence. txt)]
-  (response {:text (.words sent})))
+  (let [sent (Sentence. (get txt :data))]
+  (response {:tokens (.words sent)})))
 
 (defn freq-dist []
   (str "meow"))
@@ -52,7 +52,7 @@
     (load-demo-tokens))
   (POST "/api/tokenization" {data :body}
       (token-handler
-        (json/parse-string (slurp data))))
+        (json/parse-string (slurp data) true)))
   (GET "/api/freq-dist"
     []
     (freq-dist))
