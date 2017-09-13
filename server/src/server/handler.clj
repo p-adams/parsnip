@@ -10,14 +10,6 @@
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]))
 
 
-;; routes
-; frequency distribution : done
-; lemma: done 
-; named-entity recognition : done
-; parts-of-speech:
-; parse:
-; tokenization : done
-
 (def demo-sentence "Colorless green ideas sleep furiously")
 
 (defn remove-punct [txt]
