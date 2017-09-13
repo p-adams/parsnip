@@ -16,12 +16,15 @@
 ; named-entity recognition
 ; parts-of-speech
 ; parse
-; tokenization
+; tokenization : done
 
 
 
 (defn remove-punct [txt]
   (apply str (remove #((set ";:.,?!-'\"(){}") %) txt)))
+
+(defn process-data [data]
+  (json/parse-string (slurp data) true))
 
 (defn load-demo-tokens []
   (let [words (Sentence. "Colorless green ideas sleep furiously")]
@@ -31,7 +34,7 @@
   (let [sent (Sentence. (get txt :data))]
   (response {:tokens (.words sent)})))
 
-(defn freq-dist []
+(defn freq-dist-handler []
   (str "meow"))
 
 (defn load-demo-lemmas []
@@ -51,11 +54,11 @@
     []
     (load-demo-tokens))
   (POST "/api/tokenization" {data :body}
-      (token-handler
-        (json/parse-string (slurp data) true)))
-  (GET "/api/freq-dist"
-    []
-    (freq-dist))
+    (token-handler
+      (process-data data)))
+  (POST "/api/freq-dist" {data :body}
+    (freq-dist-handler
+      (json/parse-string (slurp data) true)))
   (GET "/api/lemmas"
     []
     (load-demo-lemmas))
